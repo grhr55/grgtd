@@ -33,7 +33,7 @@ export default function Heder() {
 
 
 useEffect(() => {
-  fetch("http://localhost:8000/newsi/newosti")
+  fetch("https://frfrf-2zok.onrender.com/newsi/newosti")
     .then((res) => {
       if (!res.ok) {
         throw new Error("Ошибка загрузки");
@@ -54,7 +54,7 @@ useEffect(() => {
 
   const fetchProducts = async () => {
   try {
-    const res = await fetch("http://localhost:8000/kino/kinge");
+    const res = await fetch("https://frfrf-2zok.onrender.com/kino/kinge");
     if (!res.ok) throw new Error("Ошибка агрузки данных портфеля");
     const data = await res.json(); 
     setproducts(data); 
@@ -90,7 +90,7 @@ const [emails, setEmails] = useState("");
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://frfrf-2zok.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -385,7 +385,7 @@ const [emails, setEmails] = useState("");
           key={product._id}
         >
           <Image
-            src={`http://localhost:8000/kino${product.img}`}
+            src={`https://frfrf-2zok.onrender.com/kino${product.img}`}
             width={330}
             height={440}
             alt={product.name}
@@ -542,7 +542,7 @@ const [emails, setEmails] = useState("");
         >
           <div className="relative">
             <Image
-              src={`http://localhost:8000/kino${product.img}`}
+              src={`https://frfrf-2zok.onrender.com/kino${product.img}`}
               width={330}
               height={440}
               alt={product.name}
@@ -622,7 +622,7 @@ const [emails, setEmails] = useState("");
       {/* Image */}
       <div className="relative w-full h-[300px] sm:h-[360px]">
         <Image
-          src={`http://localhost:8000/newsi${ne.imgnews}`}
+          src={`https://frfrf-2zok.onrender.com/newsi${ne.imgnews}`}
           fill
           alt={ne.namenews}
           className="object-cover transition-transform duration-500 group-hover:scale-105"

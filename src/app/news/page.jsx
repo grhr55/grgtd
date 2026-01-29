@@ -27,7 +27,7 @@ export default function News() {
  
 
 useEffect(() => {
-  fetch("http://localhost:8000/newsi/newosti")
+  fetch("https://frfrf-2zok.onrender.com/newsi/newosti")
     .then((res) => {
       if (!res.ok) {
         throw new Error("Ошибка загрузки");
@@ -58,7 +58,7 @@ const [emails, setEmails] = useState("");
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://frfrf-2zok.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -277,7 +277,7 @@ const handlePageClick = (event) => {
       {/* Image */}
       <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
         <Image
-          src={`http://localhost:8000/newsi${product.imgnews}`}
+          src={`https://frfrf-2zok.onrender.com/newsi${product.imgnews}`}
           alt={product.namenews}
           fill
           className="object-cover  transition-transform duration-500 group-hover:scale-105"

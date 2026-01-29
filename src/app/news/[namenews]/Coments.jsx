@@ -23,7 +23,7 @@ const Coments = async () => {
   if (!coment.trim()) return;
 
   try {
-    const res = await fetch("http://localhost:8000/data/coments", {
+    const res = await fetch("https://frfrf-2zok.onrender.com/data/coments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ coment, newsId })
@@ -50,7 +50,7 @@ const Coments = async () => {
 
 // Получаем комментарии для конкретного фильма
 useEffect(() => {
-  fetch(`http://localhost:8000/data/coments/${newsId}`)
+  fetch(`https://frfrf-2zok.onrender.com/data/coments/${newsId}`)
     .then(res => res.json())
     .then(data => setcomentaris(data));
 }, [newsId]);

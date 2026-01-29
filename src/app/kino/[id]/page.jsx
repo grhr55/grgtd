@@ -26,7 +26,7 @@ export default function ProductPage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:8000/kino/kinge/${id}`)
+    fetch(`https://frfrf-2zok.onrender.com/kino/kinge/${id}`)
       .then(res => res.json())
       .then(setProduct)
       .catch(console.error);
@@ -78,7 +78,7 @@ export default function ProductPage() {
       
       <div className="w-full z-0  h-[1000px]  bg-cover "
  style={{
-    backgroundImage: `url(http://localhost:8000/kino${product.imgvid})`,
+    backgroundImage: `url(https://frfrf-2zok.onrender.com/kino${product.imgvid})`,
   }}>
 
       
@@ -214,7 +214,7 @@ export default function ProductPage() {
     <div >
           <div className="flex gap-[50px] ">
               <Image
-               src={`http://localhost:8000/kino${product.img}`}
+               src={`https://frfrf-2zok.onrender.com/kino${product.img}`}
               width={404}
               height={559}
               alt="User Avatar"
@@ -305,7 +305,7 @@ className="
     >
       <div className="w-[248px] h-[250px] overflow-hidden">
         <Image 
-          src={`http://localhost:8000/kino${actor.masactor}`} 
+          src={`https://frfrf-2zok.onrender.com/kino${actor.masactor}`} 
           width={248} 
           height={250} 
           alt={`image-${i}`} 

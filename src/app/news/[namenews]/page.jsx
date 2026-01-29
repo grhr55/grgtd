@@ -32,7 +32,7 @@ export default function Vidnovosti() {
   useEffect(() => {
     if (!namenews) return;
 
-    fetch(`http://localhost:8000/newsi/news/${namenews}`)
+    fetch(`https://frfrf-2zok.onrender.com/newsi/news/${namenews}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(console.error);
@@ -54,7 +54,7 @@ export default function Vidnovosti() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://frfrf-2zok.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -265,7 +265,7 @@ export default function Vidnovosti() {
 
 
           <Image
-          src={`http://localhost:8000/newsi${product.imgnews}`}
+          src={`https://frfrf-2zok.onrender.com/newsi${product.imgnews}`}
           width={910}
           height={680}
           alt={product.namenews}
@@ -294,7 +294,7 @@ export default function Vidnovosti() {
 
 
           <Image
-          src={`http://localhost:8000/newsi${product.img}`}
+          src={`https://frfrf-2zok.onrender.com/newsi${product.img}`}
           width={940}
           height={680}
           alt={product.namenews}
@@ -322,7 +322,7 @@ export default function Vidnovosti() {
       key={index}
     >
       <Image
-        src={`http://localhost:8000/newsi${img}`}
+        src={`https://frfrf-2zok.onrender.com/newsi${img}`}
         width={940}
         height={680}
         alt={product.namenews}

@@ -28,7 +28,7 @@ export default function News() {
 
   const fetchProducts = async () => {
   try {
-    const res = await fetch("http://localhost:8000/kino/kinge");
+    const res = await fetch("https://frfrf-2zok.onrender.com/kino/kinge");
     if (!res.ok) throw new Error("Ошибка агрузки данных портфеля");
     const data = await res.json(); 
     setProducts(data); 
@@ -56,7 +56,7 @@ const [emails, setEmails] = useState("");
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://frfrf-2zok.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -277,7 +277,7 @@ const handlePageClick = (event) => {
      
       <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
         <Image
-          src={`http://localhost:8000/kino${product.img}`}
+          src={`https://frfrf-2zok.onrender.com/kino${product.img}`}
           alt={product.name}
           title={product.name}
           fill
