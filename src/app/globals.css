@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+
+.nosifer-regular {
+  font-family: "Nosifer", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.rye-regular {
+  font-family: "Rye", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.rubik-distressed-regular {
+  font-family: "Rubik Distressed", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.plyr {
+  --plyr-color-main: #459e9e; 
+ border-radius: 16px;
+  height: 700px;
+
+}
+@media (max-width: 600px) {
+ .plyr {
+  height: 250px;
+}
+}
+
+
+
+body {
+  background-color: rgba(30,37,56,1); 
+}
+.grind {
+ background: linear-gradient(to bottom, #00000085 0%, #0000007e 69%, rgba(30,37,56,1) 100%);
+  position: relative;
+  overflow: hidden;
+
+}
+.grind::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(30,37,56,1) 75%);
+  filter: blur(30px);
+  opacity: 1.7;
+  transform: scale(1.04);
+  z-index:-1;
+}
+
+.fjalla-one-regular {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

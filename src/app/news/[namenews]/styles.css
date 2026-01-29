@@ -1,0 +1,52 @@
+.swiper {
+  width: 100%;
+  height: 700px;
+}
+
+@media (max-width: 1024px) {
+  .swiper {
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .swiper {
+    height: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper {
+    height: 200px;
+  }
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+ 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} 
