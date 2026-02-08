@@ -100,11 +100,11 @@ export default function Slaid({ products }) {
               type: 'video',
               sources: [
                 {
-                  src: `https://frfrf-2zok.onrender.com/kino${product.video}`,
+                  src: `https://grgrege.onrender.com/kino${product.video}`,
                   type: 'video/mp4',
                 },
               ],
-              poster: `https://frfrf-2zok.onrender.com/kino${product.img}`,
+              poster: `https://grgrege.onrender.com/kino${product.img}`,
             }}
             options={{ autoplay: false }}
           />
@@ -153,10 +153,10 @@ export default function Slaid({ products }) {
               }`}
             >
               <video
-                src={`https://frfrf-2zok.onrender.com/kino${product.video}`}
+                src={`https://grgrege.onrender.com/kino${product.video}`}
                 muted
                 loop
-                poster={`https://frfrf-2zok.onrender.com/kino${product.img}`}
+                poster={`https://grgrege.onrender.com/kino${product.img}`}
                 preload="auto"
                 className="w-full 2xl:h-[400px] xl:h-[400px]
                            lg:h-[300px] md:h-[300px]

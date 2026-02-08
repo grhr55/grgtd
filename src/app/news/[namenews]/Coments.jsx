@@ -18,7 +18,7 @@ export default function Comentaris({ newsId }) {
     if (!coment.trim()) return;
 
     try {
-      const res = await fetch("https://frfrf-2zok.onrender.com/data/coments", {
+      const res = await fetch("https://grgrege.onrender.com/data/coments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ coment, newsId, zagolcoment })
@@ -42,7 +42,7 @@ export default function Comentaris({ newsId }) {
 
   const loadReplyCount = async (commentId) => {
     try {
-      const res = await fetch(`https://frfrf-2zok.onrender.com/otetcom/otetcom/${commentId}`);
+      const res = await fetch(`https://grgrege.onrender.com/otetcom/otetcom/${commentId}`);
       const data = await res.json();
       setReplyCounts(prev => ({ ...prev, [commentId]: data.length }));
     } catch (e) {
@@ -54,7 +54,7 @@ export default function Comentaris({ newsId }) {
     if (!replyText[commentId]?.trim()) return;
 
     try {
-      const res = await fetch("https://frfrf-2zok.onrender.com/otetcom/ovetcoment", {
+      const res = await fetch("https://grgrege.onrender.com/otetcom/ovetcoment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export default function Comentaris({ newsId }) {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch(`https://frfrf-2zok.onrender.com/data/coments/${newsId}`);
+        const res = await fetch(`https://grgrege.onrender.com/data/coments/${newsId}`);
         const data = await res.json();
         setcomentaris(data);
         
