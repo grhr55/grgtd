@@ -1,132 +1,296 @@
-'use client'
-
+'use client';
+import Image from "next/image";
 import { useState, useEffect } from "react";
+import Otvetcom from "./Otvetcom";
+import Reactions from "./Lice";
 
+export default function Comentaris({ newsId }) {
+  const [comentaris, setcomentaris] = useState([]);
+  const [coment, setcoment] = useState("");
+  const [zagolcoment, setzagolcoment] = useState("");
+  const [infocoment, setinfocoment] = useState("");
+  const [faction, setfaction] = useState(null);
+  const [replyCounts, setReplyCounts] = useState({});
+  const [replyText, setReplyText] = useState({});
+  const [showReplyInput, setShowReplyInput] = useState(null);
 
+  const Coments = async () => {
+    if (!coment.trim()) return;
 
+    try {
+      const res = await fetch("https://frfrf-2zok.onrender.com/data/coments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ coment, newsId, zagolcoment })
+      });
 
-export default function Comentaris({newsId}) {
+      if (!res.ok) throw new Error("Request failed");
 
-    const [comentaris,setcomentaris] = useState([])
-    const [coment, setcoment] =useState("")
-    const [infocoment ,setinfocoment] = useState()
+      const savedComent = await res.json();
 
+      setcomentaris(prev => [savedComent.data, ...prev]);
 
+      setcoment("");
+      setzagolcoment("");
+      setinfocoment("Комментарий отправлен");
+      setTimeout(() => setinfocoment(""), 3000);
+    } catch (err) {
+      console.log(err);
+      setinfocoment("Ошибка при отправке");
+    }
+  };
 
-    
+  const loadReplyCount = async (commentId) => {
+    try {
+      const res = await fetch(`https://frfrf-2zok.onrender.com/otetcom/otetcom/${commentId}`);
+      const data = await res.json();
+      setReplyCounts(prev => ({ ...prev, [commentId]: data.length }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-    
+  const sendReply = async (commentId) => {
+    if (!replyText[commentId]?.trim()) return;
 
-    
+    try {
+      const res = await fetch("https://frfrf-2zok.onrender.com/otetcom/ovetcoment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          comentsotvet: replyText[commentId],
+          otvetcomid: commentId,
+          parentOtvetId: null
+        })
+      });
 
-const Coments = async () => {
-  if (!coment.trim()) return;
+      if (!res.ok) throw new Error("Request failed");
 
-  try {
-    const res = await fetch("https://frfrf-2zok.onrender.com/data/coments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ coment, newsId })
-    });
+      setReplyText(prev => ({ ...prev, [commentId]: "" }));
+      setShowReplyInput(null);
+      loadReplyCount(commentId);
+      setfaction(String(commentId));
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    if (!res.ok) throw new Error("Request failed");
-
-    const savedComent = await res.json();
-
-  
-    setcomentaris(prev => [savedComent.data, ...prev]);
-
-    setcoment(""); // очищаем поле ввода
-    setinfocoment("Комментарий отправлен");
-    setTimeout(() => setinfocoment(""), 3000);
-
-  } catch (err) {
-    console.log(err);
-    setinfocoment("Ошибка при отправке");
-  }
-};
-
-
-
-// Получаем комментарии для конкретного фильма
-useEffect(() => {
-  fetch(`https://frfrf-2zok.onrender.com/data/coments/${newsId}`)
-    .then(res => res.json())
-    .then(data => setcomentaris(data));
-}, [newsId]);
-
-
- console.log("products:", comentaris);
-
-
-
-
-
-
-
-
-
-    return(
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch(`https://frfrf-2zok.onrender.com/data/coments/${newsId}`);
+        const data = await res.json();
+        setcomentaris(data);
         
- <div className="flex justify-center  mx-[8%]  ">
-  <div className="w-full  min-[500px]:w-[1400px]  max-[500px]:w-[360px] rounded-2xl mt-[40px] mb-[40px] p-4 ">
-    
-    <h2 className="text-2xl font-bold text-center text-amber-50 text-[40px]">
-      Комментарии
-    </h2>
+        data.forEach(comment => {
+          loadReplyCount(comment._id);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
+    if (newsId) load();
+  }, [newsId]);
 
-{comentaris.map((comenta) => (
- <div
-  key={comenta._id}
-  className="w-full p-3  rounded-lg"
->
-  
-    <div className="bg-amber-500 w-[30px] p-3  h-[30px] rounded-[30px]  ">аак</div>
-    
-  
-  <h3 className="text-white text-center text-2xl">{comenta.coment}</h3>
-</div>
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
-))}
+  const toggleReply = (id) => {
+    const strId = String(id);
+    setfaction(prev => (prev === strId ? null : strId));
+  };
 
+  const handleReplyClick = (id) => {
+    const strId = String(id);
+    setShowReplyInput(prev => (prev === strId ? null : strId));
+  };
 
+  return (
+    <div className="flex justify-center max-[500px]:px-4 px-8 py-10">
+      <div className="w-full max-w-5xl">
+        {/* Заголовок секции */}
+        <div className="text-center mb-10">
+          <h2 className="text-4xl max-[500px]:text-3xl font-extrabold bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+            Комментарии
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-amber-500 to-yellow-500 mx-auto mt-4 rounded-full"></div>
+        </div>
 
+        {/* Форма добавления комментария */}
+        <div className="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6 max-[500px]:p-4 shadow-2xl mb-8">
+          <h3 className="text-2xl max-[500px]:text-xl font-bold text-amber-400 mb-6 flex items-center gap-2">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Оставить комментарий
+          </h3>
 
+          <div className="space-y-4">
+            <input
+              type="text"
+              value={zagolcoment}
+              onChange={(e) => setzagolcoment(e.target.value)}
+              placeholder="Заголовок комментария"
+              className="w-full px-4 py-3 max-[500px]:px-3 max-[500px]:py-2 max-[500px]:text-sm rounded-xl bg-gray-900/70 text-white outline-none transition-all border border-gray-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 placeholder:text-gray-500"
+            />
 
+            <textarea
+              value={coment}
+              onChange={(e) => setcoment(e.target.value)}
+              placeholder="Что вы думаете об этом?..."
+              rows={4}
+              className="w-full px-4 py-3 max-[500px]:px-3 max-[500px]:py-2 max-[500px]:text-sm rounded-xl bg-gray-900/70 text-white outline-none transition-all border border-gray-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 placeholder:text-gray-500 resize-none"
+            />
 
+            <button
+              onClick={Coments}
+              className="w-full py-3.5 max-[500px]:py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black text-base max-[500px]:text-sm font-bold hover:from-amber-600 hover:to-yellow-600 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50"
+            >
+              Опубликовать комментарий
+            </button>
+          </div>
 
-    <input
-      type="text"
-      value={coment}
-      onChange={(e) => setcoment(e.target.value)}
-      placeholder="Введите комментарий..."
-      className="
-        w-full px-5 py-3 rounded-xl
-        bg-amber-50 text-gray-800
-        outline-none transition
-        focus:ring-4 focus:ring-blue-400/30
-        placeholder:text-gray-400
-      "
-    />
+          {infocoment && (
+            <div className={`mt-4 p-3 rounded-lg text-center font-semibold ${
+              infocoment.includes("Ошибка") 
+                ? "bg-red-500/20 text-red-400 border border-red-500/50" 
+                : "bg-green-500/20 text-green-400 border border-green-500/50"
+            }`}>
+              {infocoment}
+            </div>
+          )}
+        </div>
 
-    <button
-      onClick={Coments}
-      className="
-        w-full py-3 rounded-xl
-        bg-blue-600 text-white font-medium
-        hover:bg-blue-700
-        active:scale-[0.98]
-        transition-all
-      "
-    >
-      Отправить
-    </button>
+        {/* Список комментариев */}
+        <div className="space-y-6">
+          {comentaris.map((comenta) => (
+            <div key={comenta._id} className="w-full">
+              {/* Основной комментарий */}
+              <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-3xl p-6 max-[500px]:p-4 shadow-xl hover:shadow-2xl transition-all duration-300">
+                {/* Хедер комментария */}
+                <div className="flex items-start justify-between gap-4  mb-4">
+                  <div className="flex items-center gap-4 max-[500px]:gap-3">
+                    <div className="relative">
+                      <Image
+                        src="/img/1687156254_610x900_66014.jpg"
+                        width={60}
+                        height={60}
+                        alt="User Avatar"
+                        className="w-14 h-14 max-[500px]:w-12 max-[500px]:h-12 rounded-full ring-2 ring-amber-500/50"
+                      />
+                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-gray-900"></div>
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-lg max-[500px]:text-base">
+                        Аноним
+                      </h3>
+                      <span className="text-gray-400 text-sm max-[500px]:text-xs">
+                        {formatDate(comenta.createdAt)}
+                      </span>
+                    </div>
+                  </div>
 
-  </div>
+                  <Reactions licesid={comenta._id} />
+                </div>
 
-  <h2 className="mt-3 text-green-600">{infocoment}</h2>
-  
-</div>
-    )
+                {/* Заголовок комментария */}
+                {comenta.zagolcoment && (
+                  <h2 className="text-amber-400 font-bold text-xl max-[500px]:text-lg mb-3">
+                    {comenta.zagolcoment}
+                  </h2>
+                )}
+
+                {/* Текст комментария */}
+                <p className="text-gray-100 text-base max-[500px]:text-sm leading-relaxed whitespace-pre-wrap mb-4">
+                  {comenta.coment}
+                </p>
+
+                {/* Действия */}
+                <div className="flex items-center gap-4 max-[500px]:gap-3 pt-3 border-t border-gray-700/50">
+                  <button
+                    onClick={() => handleReplyClick(comenta._id)}
+                    className="flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold text-sm max-[500px]:text-xs transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                    </svg>
+                    {showReplyInput === String(comenta._id) ? "Отменить" : "Ответить"}
+                  </button>
+                  
+                  {replyCounts[comenta._id] > 0 && (
+                    <button 
+                      onClick={() => toggleReply(comenta._id)}
+                      className="flex items-center gap-2 text-gray-400 hover:text-amber-400 font-semibold text-sm max-[500px]:text-xs transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      <span>
+                        {faction === String(comenta._id) ? "Скрыть" : "Показать"} {replyCounts[comenta._id]} {replyCounts[comenta._id] === 1 ? 'ответ' : replyCounts[comenta._id] < 5 ? 'ответа' : 'ответов'}
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Форма ответа */}
+              {showReplyInput === String(comenta._id) && (
+                <div className="ml-8 max-[500px]:ml-4 mt-4 bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-5 max-[500px]:p-4 shadow-xl">
+                  <h3 className="text-amber-400 text-lg max-[500px]:text-base font-semibold mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                    </svg>
+                    Ответить на комментарий
+                  </h3>
+                  <textarea
+                    value={replyText[comenta._id] || ""}
+                    onChange={(e) =>
+                      setReplyText(prev => ({ ...prev, [comenta._id]: e.target.value }))
+                    }
+                    placeholder="Напишите ваш ответ..."
+                    rows={3}
+                    className="w-full px-4 py-3 max-[500px]:px-3 max-[500px]:py-2 max-[500px]:text-sm rounded-xl bg-gray-900/70 text-white outline-none transition-all border border-gray-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/40 placeholder:text-gray-500 resize-none"
+                  />
+                  <div className="flex gap-3 max-[500px]:gap-2 mt-4">
+                    <button
+                      onClick={() => sendReply(comenta._id)}
+                      className="px-6 py-2.5 max-[500px]:px-4 max-[500px]:py-2 max-[500px]:text-sm rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold hover:from-amber-600 hover:to-yellow-600 active:scale-[0.97] transition-all duration-200 shadow-lg shadow-amber-500/30"
+                    >
+                      Отправить
+                    </button>
+                    <button
+                      onClick={() => setShowReplyInput(null)}
+                      className="px-6 py-2.5 max-[500px]:px-4 max-[500px]:py-2 max-[500px]:text-sm rounded-xl bg-gray-700 text-white font-semibold hover:bg-gray-600 active:scale-[0.97] transition-all duration-200"
+                    >
+                      Отменить
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Ответы на комментарий */}
+              {faction === String(comenta._id) && (
+                <div className="ml-8 max-[500px]:ml-4 mt-4">
+                  <Otvetcom 
+                    otvetcomid={comenta._id}
+                    onReplyAdded={() => loadReplyCount(comenta._id)}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }

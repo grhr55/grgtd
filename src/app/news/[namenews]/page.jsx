@@ -11,13 +11,13 @@ import Coments from './Coments'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 import './styles.css';
 
-// import required modules
+
 import { Mousewheel, Pagination } from 'swiper/modules';
 
 
@@ -99,12 +99,12 @@ export default function Vidnovosti() {
           <FaArrowUp
             size={24} // размер стрелки
             color="white"
-            style={{ display: "block", margin: "0 auto" }} // центрируем стрелку внутри кнопки
+            style={{ display: "block", margin: "0 auto" }} 
           />
         }
         style={{
           backgroundColor: "#222",
-          borderRadius: "20%", // круглая кнопка
+          borderRadius: "20%", 
           width: "60px",
           height: "60px",
           display: "flex",
@@ -212,10 +212,10 @@ export default function Vidnovosti() {
                  <div className='flex justify-center  pt-[100px]  h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px]    text-amber-50'>
     
     <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">Media</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">Movies</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline hover:scale-115 text-[17px]">ACTORS</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">NEWS</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300  hover:underline  hover:scale-115 text-[17px]">CATEGORIES</a>
+<a href="/movies" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">Movies</a>
+<a href="/actors" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline hover:scale-115 text-[17px]">ACTORS</a>
+<a href="/news" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">NEWS</a>
+<a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300  hover:underline  hover:scale-115 text-[17px]">CATEGORIES</a>
     
     
        </div>
@@ -424,21 +424,21 @@ export default function Vidnovosti() {
       </a>
 
       <a
-        href="#"
+        href="/movies"
         className="nosifer-regular text-[17px] hover:text-red-700 hover:underline hover:scale-115 hover:duration-300"
       >
         Movies
       </a>
 
       <a
-        href="#"
+        href="/actors"
         className="nosifer-regular text-[17px] hover:text-red-700 hover:underline hover:scale-115 hover:duration-300"
       >
         ACTORS
       </a>
 
       <a
-        href="#"
+        href="/news"
         className="nosifer-regular text-[17px] hover:text-red-700 hover:underline hover:scale-115 hover:duration-300"
       >
         NEWS
@@ -450,6 +450,10 @@ export default function Vidnovosti() {
       >
         CATEGORIES
       </a>
+
+
+
+    
 
     </div>
 
