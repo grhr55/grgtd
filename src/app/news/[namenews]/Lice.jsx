@@ -76,7 +76,7 @@ export default function Reactions({ licesid }) {
         onClick={() => sendReaction('like')}
         className={`
           group relative flex items-center gap-2 
-          max-[500px]:px-3 max-[500px]:py-2 px-4 py-2.5 
+          max-[500px]:px-3 max-[500px]:py-1 px-4 py-2.5 
           rounded-full font-bold 
           shadow-lg transition-all duration-300 
           max-[500px]:text-xs text-sm
@@ -108,7 +108,7 @@ export default function Reactions({ licesid }) {
         onClick={() => sendReaction('dislike')}
         className={`
           group relative flex items-center gap-2 
-          max-[500px]:px-3 max-[500px]:py-2 px-4 py-2.5 
+          max-[500px]:px-3 max-[500px]:py-1 px-4 py-2.5 
           rounded-full font-bold 
           shadow-lg transition-all duration-300 
           max-[500px]:text-xs text-sm
