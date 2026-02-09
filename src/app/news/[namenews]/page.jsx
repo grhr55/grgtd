@@ -36,7 +36,7 @@ useEffect(() => {
 
   setLoading(true);
 
-  fetch(`https://grgrege.onrender.com/newsi/news/${namenews}`)
+  fetch(`http://localhost:8000/newsi/news/${namenews}`)
     .then(res => res.json())
     .then(data => {
       setProduct(data);
@@ -58,7 +58,7 @@ useEffect(() => {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("http://localhost:8000/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -306,7 +306,7 @@ useEffect(() => {
         </div>):( <div className="relative overflow-hidden rounded-2xl group">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Image
-            src={`https://grgrege.onrender.com/newsi${product.imgnews}`}
+            src={`http://localhost:8000/newsi${product.imgnews}`}
             width={910}
             height={680}
             alt={product.namenews}
@@ -350,7 +350,7 @@ useEffect(() => {
         </div>):(   <div className="relative overflow-hidden rounded-2xl group">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Image
-            src={`https://grgrege.onrender.com/newsi${product.img}`}
+            src={`http://localhost:8000/newsi${product.img}`}
             width={940}
             height={680}
             alt={product.namenews}
@@ -377,7 +377,7 @@ useEffect(() => {
             Object.values(product.masnewsimg).map((img, index) => (
               <SwiperSlide key={index}>
                 <Image
-                  src={`https://grgrege.onrender.com/newsi${img}`}
+                  src={`http://localhost:8000/newsi${img}`}
                   width={940}
                   height={680}
                   alt={product.namenews}

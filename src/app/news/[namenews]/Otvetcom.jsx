@@ -11,7 +11,7 @@ export default function Otvetcom({ otvetcomid, onReplyAdded }) {
   const [replyTo, setReplyTo] = useState(null);
 
   useEffect(() => {
-    fetch(`https://grgrege.onrender.com/otetcom/otetcom/${otvetcomid}`)
+    fetch(`http://localhost:8000/otetcom/otetcom/${otvetcomid}`)
       .then(res => res.json())
       .then(setComments)
       .catch(console.log);
@@ -93,7 +93,7 @@ function CommentNode({
   const sendReply = async () => {
     if (!replyText[node._id]?.trim()) return;
 
-    const res = await fetch("https://grgrege.onrender.com/otetcom/ovetcoment", {
+    const res = await fetch("http://localhost:8000/otetcom/ovetcoment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

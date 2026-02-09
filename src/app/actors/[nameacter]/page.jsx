@@ -11,7 +11,7 @@ export default function ActorP() {
   useEffect(() => {
     if (!nameacter) return
 
-    fetch(`https://grgrege.onrender.com/kino/actor/${(nameacter)}`)
+    fetch(`http://localhost:8000/kino/actor/${(nameacter)}`)
       .then(res => res.json())
       .then(setActor)
       .catch(console.error)
@@ -20,7 +20,7 @@ export default function ActorP() {
    useEffect(() => {
     if (!nameacter) return
 
-    fetch(`https://grgrege.onrender.com/kino/actors/${(nameacter)}`)
+    fetch(`http://localhost:8000/kino/actors/${(nameacter)}`)
       .then(res => res.json())
       .then(setActor)
       .catch(console.error)
@@ -173,7 +173,7 @@ export default function ActorP() {
 
         <div className='flex gap-[100px] justify-center'>
            <Image
-    src={`https://grgrege.onrender.com/kino${actor.imgacter}`}
+    src={`http://localhost:8000/kino${actor.imgacter}`}
     width={400}
     height={600}
     alt={actor.nameacter}
@@ -288,7 +288,7 @@ export default function ActorP() {
                   className="w-[347px] h-[160px] rounded-[16px] bg-[rgba(54,87,203,0.3)] p-2 pl-[30px] flex items-center gap-7"
                 >
                   <Image
-                    src={`https://grgrege.onrender.com/kino${actor.nagradimg}`}
+                    src={`http://localhost:8000/kino${actor.nagradimg}`}
                     width={55}
                     height={100}
                     alt={'frfrf'}

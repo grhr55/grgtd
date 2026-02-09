@@ -34,7 +34,7 @@ export default function News() {
       .replace(/^-|-$/g, '');
 
   useEffect(() => {
-    fetch("https://grgrege.onrender.com/newsi/newosti")
+    fetch("http://localhost:8000/newsi/newosti")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Ошибка загрузки");
@@ -58,7 +58,7 @@ export default function News() {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("http://localhost:8000/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -325,7 +325,7 @@ const NewsCardSkeleton = () => (
              
               <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
                 <Image
-                  src={`https://grgrege.onrender.com/newsi${product.imgnews}`}
+                  src={`http://localhost:8000/newsi${product.imgnews}`}
                   alt={product.namenews}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
