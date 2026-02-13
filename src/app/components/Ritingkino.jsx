@@ -32,8 +32,8 @@ export default function MovieRating({ idconos }) {
       });
   }, [idconos]);
 
-  if (loading || !idconos) {
-    return <div className="w-17 h-17 animate-pulse bg-gray-300 rounded-full" />;
+  if (loading ) {
+    return <div className="min-[1453px]:w-17   min-[1453px]:h-17  min-[500px]:w-14 min-[500px]:h-14  w-12 h-12 animate-pulse bg-gray-300 rounded-full" />;
   }
 
   return <Rating value={percent} />;

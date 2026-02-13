@@ -104,7 +104,8 @@ if (!product) return (
           justifyContent: "center",
           alignItems: "center",
           boxShadow: "0 10px 40px rgba(220, 38, 38, 0.5)",
-          border: "1px solid rgba(255, 255, 255, 0.1)"
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          zIndex: 50,
         }}
       />
       
@@ -119,7 +120,7 @@ if (!product) return (
           
   
   {/* Градиент поверх изображения - от прозрачного к чёрному */}
-  <div className="absolute inset-0 bg-gradient-to-b  from-black/10 to-black"></div>
+  <div className="absolute inset-0 bg-gradient-to-b  from-black/40 to-black"></div>
 
   {/* Размытое пятно снизу для мягкого перехода */}
   <div className="absolute top-[75%] w-full left-0 right-0 h-[30%] bg-gradient-to-t bg-gradient-to-b from-gray-950 via-gray-900 to-black to-transparent  blur-[10px] "></div>

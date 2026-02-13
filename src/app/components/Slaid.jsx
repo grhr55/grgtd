@@ -67,7 +67,7 @@ export default function Slaid({ products }) {
   return (
  <div className="w-full  relative z-30 max-w-[89rem] mx-auto px-4 py-6 space-y-8 touch-pan-y">
 
-  <h2 className="min-[500px]:text-[38px] max-[500px]:text-[30px] text-amber-50  text-center mt-[40px] nosifer-regular">
+  <h2 className="min-[500px]:text-[38px] max-[500px]:text-[30px] nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent  text-center min-[500px]:mb-[70px]  mb-[40px]   min-[500px]:mt-[40px] mt-[10px] nosifer-regular">
     New trailers
   </h2>
 
@@ -116,7 +116,7 @@ export default function Slaid({ products }) {
                          shadow-lg transition-all duration-300
                          hover:scale-105 active:scale-95"
             >
-              🎬 Watch a movie {product.name} 👈
+              🎬 Watch a movie {product.name}
             </Link>
 
 
@@ -151,7 +151,7 @@ export default function Slaid({ products }) {
               onClick={() => swiperRef.current?.slideTo(realIndex)}
               className={`relative cursor-pointer transition-transform duration-200 ${
                 activeIndex === realIndex
-                  ? 'scale-100 ring-4 ring-[#26b50c] rounded-[15px]'
+                  ? 'scale-100 ring-4 ring-[#26b50c] rounded-[20px]'
                   : 'hover:scale-105'
               }`}
             >
@@ -161,9 +161,9 @@ export default function Slaid({ products }) {
                 loop
                 poster={`https://grgrg4ee.onrender.com/kino${product.img}`}
                 preload="auto"
-                className="w-full 2xl:h-[400px] xl:h-[400px]
-                           lg:h-[300px] md:h-[300px]
-                           sm:h-[300px] h-[195px]
+                className="w-full 2xl:h-[450px] xl:h-[450px]
+                           lg:h-[380px] md:h-[300px]
+                           sm:h-[280px] min-[500px]:h-[280px] h-[200px]
                            object-fill rounded-[20px]"
               />
 

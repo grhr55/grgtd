@@ -35,6 +35,7 @@ export default function Heder() {
         if (!res.ok) throw new Error("Ошибка загрузки");
         const data = await res.json();
         setnews(data);
+     
       } catch (err) {
         console.error(err);
       } finally {
@@ -44,18 +45,20 @@ export default function Heder() {
     loadNews();
   }, []);
 
+ 
   const fetchProducts = async () => {
     try {
-      setLoadingProducts(true);
+      setLoadingProducts(true)
       const res = await fetch("https://grgrg4ee.onrender.com/kino/kinge");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json(); 
       setproducts(data); 
+      
     } catch(err) {
       console.error(err);
     } finally {
-      setLoadingProducts(false);
-    }
+        setLoadingProducts(false);
+      }
   }
   
   useEffect(() => {
@@ -129,7 +132,7 @@ export default function Heder() {
   const genres = ['All', 'action films', 'adventures', 'comedy', 'fantasy', 'thrillers', 'drama'];
   const years = ["All",...Array.from(new Set(products.map(p => Number(p.year)))).sort((a, b) => b - a).map(String)];
 
-  // Skeleton компонент для карточек фильмов
+
   const MovieCardSkeleton = () => (
     <div className="animate-pulse">
       <div className="bg-[#adacac] rounded-[15px]
@@ -145,7 +148,8 @@ export default function Heder() {
     </div>
   );
 
-  // Skeleton компонент для новостей
+  
+
   const NewsCardSkeleton = () => (
     <div className="animate-pulse group relative rounded-2xl overflow-hidden shadow-lg">
       <div className="relative w-full h-[300px] sm:h-[360px] bg-[#adacac]" />
@@ -155,6 +159,7 @@ export default function Heder() {
       </div>
     </div>
   );
+
 
 
 return (
@@ -171,9 +176,9 @@ return (
         smooth
         top={100}
         component={
-          <div className="relative group">
-            <FaArrowUp size={18} className="text-white relative z-10" />
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-amber-600 rounded-full blur opacity-75 group-hover:opacity-100 transition"></div>
+          <div className="relative group ">
+            <FaArrowUp size={18} className="text-white relative   " />
+            <div className="absolute  inset-0 bg-gradient-to-r from-red-600 to-amber-600 rounded-full blur opacity-75 group-hover:opacity-100 transition"></div>
           </div>
         }
         style={{
@@ -186,6 +191,7 @@ return (
           alignItems: "center",
           boxShadow: "0 10px 40px rgba(220, 38, 38, 0.5)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
+          zIndex: 50,
         }}
       />
 
@@ -321,9 +327,9 @@ return (
 
 
 
-          <div className="flex justify-center relative z-10  ">
+          <div className="flex justify-center mt-[30px] relative z-10  ">
             <div className="hidden min-[1420px]:flex">
-              <h1 className="text-[38px]   text-amber-50   nosifer-regular">Now at the cinema</h1>
+              <h1 className="text-[38px] nosifer-regular bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">Now at the cinema</h1>
             </div>
 
             <div className="hidden min-[1420px]:flex">
@@ -344,8 +350,8 @@ return (
 
 
 
-          <div className="flex relative z-10   mx-[10px] flex-col items-center my-9 min-[600px]:hidden">
-            <h2 className="nosifer-regular  text-[23px] bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent mb-4">
+          <div className="flex relative z-10     mx-[10px] flex-col items-center  min-[500px]:my-9 min-[600px]:hidden">
+            <h2 className="nosifer-regular  text-[23px] bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent  mb-[20px] ">
               Now at the cinema
             </h2>
 
@@ -386,17 +392,19 @@ return (
 
 
           <div>
-            <div className="flex justify-center relative z-10 2xl:mx-[90px] xl:mx-[170px] min-[1000px]:mx-[170px] max-[1200px]:mx-[15px] flex-wrap mx-[15px] mt-[50px] min-[500px]:gap-[22px] max-[500px]:gap-[20px]">
+            <div className="flex justify-center relative z-10 2xl:mx-[90px] xl:mx-[170px] min-[1000px]:mx-[170px] max-[1200px]:mx-[15px] flex-wrap mx-[15px] min-[500px]:mt-[60px] mt-[30px] min-[500px]:gap-[22px] max-[500px]:gap-[20px]">
+            
+
               {loadingProducts ? (
 
-                 <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10">
-            {products.map((product) => (
-              <MovieCardSkeleton key={product._id} />
-            ))}
-          </div>
+                    Array.from({ length:products.length || 8 }).map((_, index) => (
+                  <MovieCardSkeleton className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10" key={index} />
+                ))
                
               ) : (
-                filteredProducts.map((product) => (
+                
+
+                 filteredProducts.map((product) => (
                   <Link
                     href={`/kino/${slugify(product.name)}`}
                     key={product._id}
@@ -407,7 +415,7 @@ return (
                         lg:w-[202px] min-[500px]:w-[202px] max-[500px]:w-[150px]
                         2xl:h-[440px] xl:h-[440px] xl:max-[1453px]:h-[270px]
                         lg:h-[270px] min-[500px]:h-[270px] max-[500px]:h-[197px] ">
-<button className="mt-50 ml-15 hidden min-[1200px]:flex
+<button className="mt-45 ml-15 hidden min-[1200px]:flex
                opacity-0 group-hover:opacity-100
                transition-all duration-300 ease-in-out
                
@@ -468,7 +476,10 @@ return (
                  </div>
                   </Link>
                 ))
-              )}
+       
+               
+              )  }
+
             </div>
 
             <div className="flex relative z-10 justify-center">
@@ -492,9 +503,9 @@ return (
         </div>
 
         
-        <div className="flex justify-center  relative z-10 mt-[80px] mb-[40px] ">
+        <div className="flex justify-center  relative z-10 mt-[50px] mb-[80px] ">
           <div className="hidden min-[1420px]:flex">
-            <h2 className="text-[38px] text-amber-50  nosifer-regular">Popular films</h2>
+            <h2 className="text-[38px] nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent nosifer-regular">Popular films</h2>
           </div>
 
           <div className="hidden min-[1420px]:flex">
@@ -643,7 +654,7 @@ return (
           </div>
           
           <div className=" mb-[100px] relative z-10  min-[500px]:mx-[14%] max-[500px]:mx-[11%]">
-            <h2 className=" min-[500px]:text-[40px] max-[500px]:text-[28px] text-left text-amber-50  my-10 nosifer-regular">News</h2>
+            <h2 className=" min-[500px]:text-[40px] max-[500px]:text-[28px] text-left nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent  min-[500px]:my-16 my-7 my-10 nosifer-regular">News</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10">
               {loadingNews ? (

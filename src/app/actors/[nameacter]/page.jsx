@@ -84,6 +84,7 @@ export default function ActorP() {
           alignItems: "center",
           boxShadow: "0 10px 40px rgba(220, 38, 38, 0.5)",
           border: "1px solid rgba(255, 255, 255, 0.1)",
+          zIndex: 50,
         }}
       />
 
