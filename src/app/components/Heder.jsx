@@ -50,7 +50,7 @@ export default function Heder() {
     try {
       setLoadingProducts(true)
       const res = await fetch("https://grgrg4ee.onrender.com/kino/kinge");
-      if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
+      if (!res.ok) throw new Error("Ошибка загрузки данныхпортфеля");
       const data = await res.json(); 
       setproducts(data); 
       
