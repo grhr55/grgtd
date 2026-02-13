@@ -14,7 +14,7 @@ export default function Kino({}) {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`https://grgrege.onrender.com/kino/kinge/${id}`)
+    fetch(`https://grgrg4ee.onrender.com/kino/kinge/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(err => console.error(err));
@@ -32,20 +32,20 @@ export default function Kino({}) {
  <Plyr
   source={{
     type: 'video',
-    poster: `https://grgrege.onrender.com/kino${product.img}`,
+    poster: `https://grgrg4ee.onrender.com/kino${product.img}`,
     sources: [
       {
-        src: `https://grgrege.onrender.com/kino${product.video480}`,
+        src: `https://grgrg4ee.onrender.com/kino${product.video480}`,
         type: 'video/mp4',
         size: 480,
       },
       {
-        src: `https://grgrege.onrender.com/kino${product.video720}`,
+        src: `https://grgrg4ee.onrender.com/kino${product.video720}`,
         type: 'video/mp4',
         size: 720,
       },
       {
-        src: `https://grgrege.onrender.com/kino${product.video1080}`,
+        src: `https://grgrg4ee.onrender.com/kino${product.video1080}`,
         type: 'video/mp4',
         size: 1080,
       },

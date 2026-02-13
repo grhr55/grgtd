@@ -37,7 +37,7 @@ export default function News() {
 useEffect(() => {
   setLoading(true);
 
-  fetch("https://grgrege.onrender.com/newsi/newosti")
+  fetch("https://grgrg4ee.onrender.com/newsi/newosti")
     .then((res) => {
       if (!res.ok) {
         throw new Error("Ошибка загрузки");
@@ -67,7 +67,7 @@ useEffect(() => {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("https://grgrg4ee.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -91,7 +91,7 @@ useEffect(() => {
 
 const loadReplyCount = async (otvetcomid) => {
   try {
-    const res = await fetch(`https://grgrege.onrender.com/otetcom//otetcom/${otvetcomid}`);
+    const res = await fetch(`https://grgrg4ee.onrender.com/otetcom//otetcom/${otvetcomid}`);
     const data = await res.json();
     setReplyCounts(prev => ({ ...prev, [otvetcomid]: data.length }));
   } catch (e) {
@@ -350,7 +350,7 @@ const NewsCardSkeleton = () => (
              
               <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
                 <Image
-                  src={`https://grgrege.onrender.com/newsi${product.imgnews}`}
+                  src={`https://grgrg4ee.onrender.com/newsi${product.imgnews}`}
                   alt={product.namenews}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

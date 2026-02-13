@@ -22,7 +22,7 @@ export default function Reactions({ licesid }) {
 
   // Получаем счётчики
   const fetchReactions = async () => {
-    const res = await fetch(`https://grgrege.onrender.com/reactions/lice/${licesid}`);
+    const res = await fetch(`https://grgrg4ee.onrender.com/reactions/lice/${licesid}`);
     const data = await res.json();
     setReaction({
       likeCount: data.likes,
@@ -62,7 +62,7 @@ export default function Reactions({ licesid }) {
     });
 
     // Отправляем на сервер, но не ждём GET
-    fetch("https://grgrege.onrender.com/reactions/lice", {
+    fetch("https://grgrg4ee.onrender.com/reactions/lice", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ licesid, deviceId, type })

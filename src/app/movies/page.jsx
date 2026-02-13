@@ -36,7 +36,7 @@ export default function News() {
 
   useEffect(() => {
     setLoading(true)
-    fetch("https://grgrege.onrender.com/kino/kinge")
+    fetch("https://grgrg4ee.onrender.com/kino/kinge")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Ошибка загрузки");
@@ -60,7 +60,7 @@ export default function News() {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("https://grgrg4ee.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -323,7 +323,7 @@ const NewsCardSkeleton = () => (
              
               <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
                 <Image
-                  src={`https://grgrege.onrender.com/kino${product.img}`}
+                  src={`https://grgrg4ee.onrender.com/kino${product.img}`}
                   alt={product.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

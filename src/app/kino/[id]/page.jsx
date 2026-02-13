@@ -39,7 +39,7 @@ export default function ProductPage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`https://grgrege.onrender.com/kino/kinge/${id}`)
+    fetch(`https://grgrg4ee.onrender.com/kino/kinge/${id}`)
       .then(res => res.json())
       .then(setProduct)
       .catch(console.error);
@@ -111,7 +111,7 @@ if (!product) return (
  <div
   className="w-full h-[1000px] bg-cover bg-center relative"
   style={{
-    backgroundImage: `url(https://grgrege.onrender.com/kino${product.imgvid})`,
+    backgroundImage: `url(https://grgrg4ee.onrender.com/kino${product.imgvid})`,
   }}
 >
      
@@ -277,7 +277,7 @@ if (!product) return (
           <div className="flex gap-[50px] ">
               <div>
                 <Image
-               src={`https://grgrege.onrender.com/kino${product.img}`}
+               src={`https://grgrg4ee.onrender.com/kino${product.img}`}
               width={404}
               height={559}
               alt="User Avatar"
@@ -371,7 +371,7 @@ className="
     >
       <div className="w-[248px] h-[250px] overflow-hidden">
         <Image 
-          src={`https://grgrege.onrender.com/kino${actor.masactor}`} 
+          src={`https://grgrg4ee.onrender.com/kino${actor.masactor}`} 
           width={248} 
           height={250} 
           alt={`акуккк`} 

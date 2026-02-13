@@ -34,7 +34,7 @@ export default function Actors() {
 
   useEffect(() => {
     setLoading(true)
-    fetch("https://grgrege.onrender.com/kino/actors")
+    fetch("https://grgrg4ee.onrender.com/kino/actors")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Ошибка загрузки");
@@ -62,7 +62,7 @@ export default function Actors() {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("https://grgrg4ee.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -319,7 +319,7 @@ export default function Actors() {
                 {/* Image */}
                 <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
                   <Image
-                    src={`https://grgrege.onrender.com/kino${actor.imgacter}`}
+                    src={`https://grgrg4ee.onrender.com/kino${actor.imgacter}`}
                     alt={actor.nameacter}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"

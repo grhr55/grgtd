@@ -10,7 +10,7 @@ export default function MovieRating({ idconos }) {
 
     setLoading(true);
     
-    fetch(`https://grgrege.onrender.com/lacikino/lice/${idconos}`)
+    fetch(`https://grgrg4ee.onrender.com/lacikino/lice/${idconos}`)
       .then(res => res.json())
       .then(data => {
         const total = data.likes + data.dislikes;

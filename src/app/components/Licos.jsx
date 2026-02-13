@@ -38,7 +38,7 @@ export default function Licos({ idconos }) {
       
       const idconosStr = String(idconos);
       // ✅ ОБЯЗАТЕЛЬНО передаём deviceId в query параметрах
-      const url = `https://grgrege.onrender.com/lacikino/lice/${idconosStr}?deviceId=${encodeURIComponent(deviceId)}`;
+      const url = `https://grgrg4ee.onrender.com/lacikino/lice/${idconosStr}?deviceId=${encodeURIComponent(deviceId)}`;
       
       console.log(`📡 Загрузка для видео ${idconosStr.slice(-6)}...`);
       console.log(`🔗 URL: ${url}`);
@@ -106,7 +106,7 @@ export default function Licos({ idconos }) {
     });
 
     try {
-      const response = await fetch("https://grgrege.onrender.com/lacikino/lice", {
+      const response = await fetch("https://grgrg4ee.onrender.com/lacikino/lice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

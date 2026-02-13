@@ -24,7 +24,7 @@ export default function ActorP() {
   useEffect(() => {
     if (!nameacter) return
 
-    fetch(`https://grgrege.onrender.com/kino/actor/${(nameacter)}`)
+    fetch(`https://grgrg4ee.onrender.com/kino/actor/${(nameacter)}`)
       .then(res => res.json())
       .then(setActor)
       .catch(console.error)
@@ -33,7 +33,7 @@ export default function ActorP() {
   useEffect(() => {
     if (!nameacter) return
 
-    fetch(`https://grgrege.onrender.com/kino/actors/${(nameacter)}`)
+    fetch(`https://grgrg4ee.onrender.com/kino/actors/${(nameacter)}`)
       .then(res => res.json())
       .then(setActor)
       .catch(console.error)
@@ -234,7 +234,7 @@ export default function ActorP() {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-amber-600 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
             <Image
-              src={`https://grgrege.onrender.com/kino${actor.imgacter}`}
+              src={`https://grgrg4ee.onrender.com/kino${actor.imgacter}`}
               width={400}
               height={600}
               alt={actor.nameacter}
@@ -351,7 +351,7 @@ export default function ActorP() {
             <div className="relative w-full h-auto rounded-2xl bg-gradient-to-br from-red-950/30 via-amber-950/20 to-red-950/30 border border-red-900/30 p-6 flex items-center gap-6">
               <div className="relative flex-shrink-0">
                 <Image
-                  src={`https://grgrege.onrender.com/kino${actor.nagradimg}`}
+                  src={`https://grgrg4ee.onrender.com/kino${actor.nagradimg}`}
                   width={80}
                   height={140}
                   alt={actor.actornamenagrad}

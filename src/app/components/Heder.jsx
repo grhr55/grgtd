@@ -31,7 +31,7 @@ export default function Heder() {
     const loadNews = async () => {
       try {
         setLoadingNews(true);
-        const res = await fetch("https://grgrege.onrender.com/newsi/newosti");
+        const res = await fetch("https://grgrg4ee.onrender.com/newsi/newosti");
         if (!res.ok) throw new Error("Ошибка загрузки");
         const data = await res.json();
         setnews(data);
@@ -47,7 +47,7 @@ export default function Heder() {
   const fetchProducts = async () => {
     try {
       setLoadingProducts(true);
-      const res = await fetch("https://grgrege.onrender.com/kino/kinge");
+      const res = await fetch("https://grgrg4ee.onrender.com/kino/kinge");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json(); 
       setproducts(data); 
@@ -84,7 +84,7 @@ export default function Heder() {
     }
 
     try {
-      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
+      const res = await fetch("https://grgrg4ee.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -445,7 +445,7 @@ return (
 
                   </div>
                  <Image 
-                      src={`https://grgrege.onrender.com/kino${product.img}`}
+                      src={`https://grgrg4ee.onrender.com/kino${product.img}`}
                       width={330}
                       height={440}
                       alt={product.name}
@@ -612,7 +612,7 @@ return (
 
                   </div>
                     <Image
-                      src={`https://grgrege.onrender.com/kino${product.img}`}
+                      src={`https://grgrg4ee.onrender.com/kino${product.img}`}
                       width={330}
                       height={440}
                       alt={product.name}
@@ -670,7 +670,7 @@ return (
                   >
                     <div className="relative w-full h-[300px] sm:h-[360px]">
                       <Image
-                        src={`https://grgrege.onrender.com/newsi${ne.imgnews}`}
+                        src={`https://grgrg4ee.onrender.com/newsi${ne.imgnews}`}
                         fill
                         alt={ne.namenews}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
