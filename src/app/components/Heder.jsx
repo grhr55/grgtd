@@ -211,17 +211,7 @@ return (
                 </button>
               </div>
               
-              <nav className="flex text-amber-50 flex-wrap mx-[200px] justify-center gap-10">
-                {["Media", "Movies", "ACTORS", "NEWS", "CATEGORIES"].map((item) => (
-                  <a
-                    key={item}
-                    href="#"
-                    className="nosifer-regular text-[17px] text-center transition duration-300 transform hover:text-red-500 hover:underline hover:scale-110"
-                  >
-                    {item}
-                  </a>
-                ))}
-              </nav>
+            
             </div>
           </div>
         )}
