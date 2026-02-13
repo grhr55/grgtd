@@ -9,17 +9,18 @@ import Link from 'next/link';
 export default function News() {
   
   const [products, setProducts] = useState([])
+   const [comments, setComments] = useState([]);
   const [fynts, setfynts] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [productsPerPage] = useState(21);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const [loading, setLoading] = useState(null);
+  const [replyCounts, setReplyCounts] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -33,20 +34,28 @@ export default function News() {
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
 
-  useEffect(() => {
-    fetch("http://localhost:8000/newsi/newosti")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Ошибка загрузки");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data);
-        setTotalProducts(data.length);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+  setLoading(true);
+
+  fetch("https://grgrege.onrender.com/newsi/newosti")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Ошибка загрузки");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setProducts(data);
+      setTotalProducts(data.length);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      setLoading(false); 
+    });
+}, []);
+
 
   const [emails, setEmails] = useState("");
   const [status, setStatus] = useState("");
@@ -58,7 +67,7 @@ export default function News() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -79,11 +88,31 @@ export default function News() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+
+const loadReplyCount = async (otvetcomid) => {
+  try {
+    const res = await fetch(`https://grgrege.onrender.com/otetcom//otetcom/${otvetcomid}`);
+    const data = await res.json();
+    setReplyCounts(prev => ({ ...prev, [otvetcomid]: data.length }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// Вызов для каждого комментария
+useEffect(() => {
+  // Предположим, у вас есть массив comments
+  comments.forEach(comments => {
+    loadReplyCount(comments._id);
+  });
+}, [comments]);
+
+
   const indexOfLastProduct = (currentPage + 1) * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  if (!products) return (
+  if ( !products ) return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black">
       <div className="relative">
         <div className="w-28 h-28 rounded-full border-[6px] border-gray-800 border-t-red-600 animate-spin"></div>
@@ -193,110 +222,104 @@ const NewsCardSkeleton = () => (
       </div>
 
       
-      <div className={`sticky top-0 z-40 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-[#00000000] backdrop-blur-2xl shadow-2xl border-b border-white/5' 
-          : 'bg-transparent'
-      }`}>
-        <div className="flex min-[1058px]:justify-center max-[1058px]:justify-around 2xl:gap-[130px] xl:gap-[70px] max-[500px]:gap-[5px] min-[400px]:mx-[30px] max-[400px]:mx-[10px]">
-          
-          
-          <div className="flex gap-[4px] min-[500px]:hidden">
-            <button 
-              onClick={() => setfynts(false)} 
-              className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
-            >
-              <div className="min-[400px]:ml-[15px] max-[400px]:ml-[10px] min-[400px]:mb-[0px] max-[400px]:mb-[3px]">
-                <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
-                <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
-                <div className="w-[25px] h-[3px] bg-red-500"></div>
+     <div className={`sticky top-0 z-40 transition-all duration-500 ${
+            isScrolled 
+              ? 'bg-[#00000000] backdrop-blur-2xl shadow-2xl border-' 
+              : 'bg-transparent'
+          }`}>
+            <div className="flex min-[1058px]:justify-center max-[1058px]:justify-around 2xl:gap-[130px] xl:gap-[70px] max-[500px]:gap-[5px] min-[400px]:mx-[30px] max-[400px]:mx-[10px]">
+              
+              <div className="flex gap-[4px] min-[500px]:hidden">
+                <button 
+                  onClick={() => setfynts(false)} 
+                  className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+                >
+                  <div className="min-[400px]:ml-[15px] max-[400px]:ml-[10px] min-[400px]:mb-[0px] max-[400px]:mb-[3px]">
+                    <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
+                    <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
+                    <div className="w-[25px] h-[3px] bg-red-500"></div>
+                  </div>
+                </button>
               </div>
-            </button>
-          </div>
-
-         
-          <div className="flex gap-[4px] min-[1058px]:hidden">
-            <a 
-              href="#" 
-              className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
-            >
+    
+              <div className="flex gap-[4px] min-[1058px]:hidden">
+                <a 
+                  href="#" 
+                  className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+                >
+                  <Image
+                    src="/img/Vector.png"
+                    width={25}
+                    height={25}
+                    alt="Search"
+                    className="w-[25px] mx-auto min-[400px]:mt-[15px] max-[400px]:mt-[10px] hover:scale-140 transition duration-400 ease-in-out h-[25px]"
+                  />
+                </a>
+              </div>
+    
               <Image
-                src="/img/Vector.png"
-                width={25}
-                height={25}
-                alt="Search"
-                className="w-[25px] mx-auto min-[400px]:mt-[15px] max-[400px]:mt-[10px] hover:scale-140 transition duration-400 ease-in-out h-[25px]"
+                src="/img/Copilot_20251012_035756.png"
+                width={150}
+                height={150}
+                alt="Logo"
+                className="2xl:w-[150px] xl:h-[150px] lg:w-[150px] lg:h-[150px] md:h-[150px] md:w-[150px] sm:h-[150px] sm:w-[150px] min-[400px]:w-[140px] max-[400px]:w-[125px] min-[400px]:h-[140px] max-[400px]:h-[125px] xl:w-[150px] 2xl:h-[150px] drop-shadow-2xl hover:drop-shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-500 hover:scale-110"
               />
-            </a>
-          </div>
-
-          
-          <Image
-            src="/img/Copilot_20251012_035756.png"
-            width={200}
-            height={200}
-            alt="Logo"
-            className="2xl:w-[200px] xl:h-[200px] lg:w-[200px] lg:h-[200px] md:h-[200px] md:w-[200px] sm:h-[200px] sm:w-[200px] min-[400px]:w-[140px] max-[400px]:w-[125px] min-[400px]:h-[140px] max-[400px]:h-[125px] xl:w-[200px] 2xl:h-[200px] drop-shadow-2xl hover:drop-shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-500 hover:scale-110"
-          />
-
-      
-          <div className="hidden min-[1058px]:flex">
-            <div className='flex justify-center pt-[100px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px] text-amber-50'>
-              <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
-                Media
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
-              </a>
-              <a href="/movies" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
-                Movies
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
-              </a>
-              <a href="/actors" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
-                ACTORS
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
-              </a>
-              <a href="/news" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
-                NEWS
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
-              </a>
-              <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
-                CATEGORIES
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
-              </a>
+    
+              <div className="hidden min-[1058px]:flex">
+                <div className='flex justify-center pt-[70px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px] text-amber-50'>
+                  <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                    Media
+                    <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                  </a>
+                  <a href="/movies" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                    Movies
+                    <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                  </a>
+                  <a href="/actors" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                    ACTORS
+                    <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                  </a>
+                  <a href="/news" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                    NEWS
+                    <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                  </a>
+                  <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                    CATEGORIES
+                    <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                  </a>
+                </div>
+              </div>
+    
+              <div className="hidden min-[1058px]:flex">
+                <div className="flex mt-[50px] gap-[12px]">
+                  <a 
+                    href="#" 
+                    className="w-[55px] h-[52px] rounded-[20px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 flex items-center justify-center"
+                  >
+                    <Image
+                      src="/img/Vector.png"
+                      width={25}
+                      height={25}
+                      alt="Search"
+                      className="w-[25px] h-[25px] hover:scale-140 transition duration-400 ease-in-out"
+                    />
+                  </a>
+                  <button className="w-[138px] cursor-pointer nosifer-regular hover:scale-110 h-[53px] font-semibold px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[15px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
+                    Enter
+                  </button>
+                </div>
+              </div>
+    
+              <div className="flex min-[1058px]:hidden">
+                <button className="cursor-pointer min-[500px]:w-[138px] nosifer-regular max-[500px]:w-[90px] min-[500px]:h-[53px] max-[500px]:h-[52px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[20px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
+                  Enter
+                </button>
+              </div>
             </div>
           </div>
-
-          
-          <div className="hidden min-[1058px]:flex">
-            <div className="flex mt-[80px] gap-[12px]">
-              <a 
-                href="#" 
-                className="w-[55px] h-[52px] rounded-[20px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 flex items-center justify-center"
-              >
-                <Image
-                  src="/img/Vector.png"
-                  width={25}
-                  height={25}
-                  alt="Search"
-                  className="w-[25px] h-[25px] hover:scale-140 transition duration-400 ease-in-out"
-                />
-              </a>
-              <button className="w-[138px] cursor-pointer nosifer-regular hover:scale-110 h-[53px] font-semibold px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[15px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
-                Enter
-              </button>
-            </div>
-          </div>
-
-        
-          <div className="flex min-[1058px]:hidden">
-            <button className="cursor-pointer min-[500px]:w-[138px] nosifer-regular max-[500px]:w-[90px] min-[500px]:h-[53px] max-[500px]:h-[52px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[20px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
-              Enter
-            </button>
-          </div>
-        </div>
-      </div>
 
      
-      <div className='min-[1900px]:mx-[14%] max-[1700px]:mx-[8%]'>
+      <div className='min-[1900px]:mx-[15%] min-[1000px]:mx-[10%] min-[500px]:mx-[12%] min-[408px]:mx-[6%] mx-[5%]   '>
         
         
         <h1 className='text-amber-50 font-extrabold text-4xl lg:text-6xl mb-4'>News</h1>
@@ -310,10 +333,12 @@ const NewsCardSkeleton = () => (
         </nav>
 
      
-        {!loading ?(<div>
-          {products.map(product => (
-            <NewsCardSkeleton key={product._id}  />
-          ))}
+        {loading ? (<div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10">
+            {products.map((product) => (
+              <NewsCardSkeleton key={product._id} />
+            ))}
+          </div>
         </div>):(
           <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10">
           {currentProducts.map(product => (
@@ -325,7 +350,7 @@ const NewsCardSkeleton = () => (
              
               <div className="relative w-full h-[300px] sm:h-[360px] lg:h-[400px]">
                 <Image
-                  src={`http://localhost:8000/newsi${product.imgnews}`}
+                  src={`https://grgrege.onrender.com/newsi${product.imgnews}`}
                   alt={product.namenews}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -339,8 +364,26 @@ const NewsCardSkeleton = () => (
               </div>
 
              
+
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h2 className="text-white text-lg sm:text-xl font-semibold leading-snug line-clamp-2 group-hover:text-red-400 transition-colors duration-300">
+<div className='flex  gap-2 mb-3'>
+                  <h2 className="text-amber-500 font-['Inter',sans-serif] text-lg sm:text-xl font-semibold leading-snug line-clamp-2 group-hover:text-red-400 transition-colors duration-300">
+                  news
+                </h2>
+
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+{comments.map(replyCounts => (
+  <div  key={replyCounts._id}>
+
+  </div> 
+))}
+
+</div>
+
+                
+                <h2 className="text-white text-lg sm:text-xl font-semibold leading-snug line-clamp-5 group-hover:text-red-400 transition-colors duration-300">
                   {product.namenews}
                 </h2>
               </div>
@@ -394,8 +437,8 @@ const NewsCardSkeleton = () => (
       </div>
 
      
-      <div className="bg-[#00000000] flex justify-center w-[100%] h-[700px]">
-        <div className="my-[70px] min-[500px]:w-[1400px] max-[500px]:w-[360px] mx-[8%] h-[580px] rounded-[10px] bg-gradient-to-br from-red-900/20 via-black to-amber-900/20 border border-red-900/30 flex flex-col items-center relative overflow-hidden">
+      <div className="bg-[#00000000] flex justify-center w-[100%]  min-[500px]:h-[700px] max-[500px]:h-[400px]">
+        <div className="min-[500px]:mt-[60px] max-[500px]:mt-[0px] min-[500px]:w-[1400px] max-[500px]:w-[360px] mx-[5%] h-[580px] rounded-[10px] bg-gradient-to-br from-red-900/20 via-black to-amber-900/20 border border-red-900/30 flex flex-col items-center relative overflow-hidden">
           
         
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>

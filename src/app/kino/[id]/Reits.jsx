@@ -1,0 +1,40 @@
+import { useEffect, useState } from "react";
+import Rating from "./Rating";
+
+export default function MovieRating({ idconos }) {
+  const [percent, setPercent] = useState(80);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!idconos) return;
+
+    setLoading(true);
+    
+    fetch(`https://grgrege.onrender.com/lacikino/lice/${idconos}`)
+      .then(res => res.json())
+      .then(data => {
+        const total = data.likes + data.dislikes;
+
+        if (total === 0) {
+          setPercent(80); 
+        } else {
+         
+          const likePercentage = (data.likes / total) * 100;
+          
+        
+          setPercent(parseFloat(likePercentage.toFixed(1)));
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Ошибка:', err);
+        setLoading(false);
+      });
+  }, [idconos]);
+
+  if (loading || !idconos) {
+    return <div className="w-17 h-17 animate-pulse bg-gray-300 rounded-full" />;
+  }
+
+  return <Rating value={percent} />;
+}

@@ -10,7 +10,7 @@ export default function ProductPage() {
 
     useEffect(() => {
       if (!id) return;
-      fetch(`http://localhost:8000/kino/kinge/${id}`)
+      fetch(`https://grgrege.onrender.com/kino/kinge/${id}`)
         .then(res => res.json())
         .then(data => setProduct(Array.isArray(data) ? data[0] : data))
         .catch(err => console.error(err));
@@ -22,10 +22,10 @@ export default function ProductPage() {
       {product.imgnarad.map((item, index) => (
         <div
           key={index}
-          className="w-[347px] h-[160px] rounded-[16px] bg-[rgba(54,87,203,0.3)] p-2 pl-[30px] flex items-center gap-7"
+          className="w-[347px] h-[160px] rounded-[16px] bg-[rgba(239,243,255,0.3)] p-2 pl-[30px] flex items-center gap-7"
         >
           <Image
-            src={`http://localhost:8000/kino${item.imgramat}`}
+            src={`https://grgrege.onrender.com/kino${item.imgramat}`}
             width={55}
             height={100}
             alt={`Product image ${index + 1}`}

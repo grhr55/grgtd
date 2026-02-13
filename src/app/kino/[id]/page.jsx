@@ -6,10 +6,13 @@ import ScrollToTop from "react-scroll-to-top";
 import { FaArrowUp } from "react-icons/fa";
 
 
+
 import Image from "next/image";
 import Kino from './Kino'
 import Nagrad from './Nagrad'
 import Kadri from './Kadri'
+import MovieRating from './Reits'
+
 
 
 
@@ -19,6 +22,16 @@ export default function ProductPage() {
    const [granit, setgranit] = useState(10);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 20);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
 
 
@@ -26,18 +39,26 @@ export default function ProductPage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://localhost:8000/kino/kinge/${id}`)
+    fetch(`https://grgrege.onrender.com/kino/kinge/${id}`)
       .then(res => res.json())
       .then(setProduct)
       .catch(console.error);
   }, [id]);
 
-  if (!product) return <div className="flex flex-col mt-[400px] items-center justify-center min-h-[200px] gap-4">
-  <div className="w-30 h-30 rounded-full border-4 border-zinc-700 border-t-amber-400 animate-spin"></div>
-  <span className="text-amber-400 tracking-widest text-[30px] animate-pulse">
-    LOADING...
-  </span>
-</div>
+if (!product) return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+      <div className="relative">
+        <div className="w-28 h-28 rounded-full border-[6px] border-gray-800 border-t-red-600 animate-spin"></div>
+        <div className="absolute inset-0 w-28 h-28 rounded-full border-[6px] border-transparent border-b-amber-500 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+      </div>
+      <div className="mt-10 text-center">
+        <span className="block text-amber-500 tracking-[0.4em] text-3xl font-black animate-pulse mb-2">
+          LOADING
+        </span>
+        <span className="text-gray-500 text-sm tracking-wider">Please wait...</span>
+      </div>
+    </div>
+  );
 
 
   const faction = Array.isArray(product.masactor) ? product.masactor : [product.masactor];
@@ -51,175 +72,219 @@ export default function ProductPage() {
 
   <div>
     
-     <div className="group w-[100%]  h-[100%]   relative ">
+     <div className=" w-[100%]  relative  ">
 
-        <ScrollToTop
+
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02]"></div>
+      </div>
+
+
+
+
+       
+
+
+    <ScrollToTop
         smooth
-        top={100} // показывать после 100px прокрутки
+        top={100}
         component={
-          <FaArrowUp
-            size={24} // размер стрелки
-            color="white"
-            style={{ display: "block", margin: "0 auto" }} // центрируем стрелку внутри кнопки
-        />
+          <div className="relative z-10 group">
+            <FaArrowUp size={18} className="text-white " />
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-amber-600 rounded-full blur opacity-75 group-hover:opacity-100 transition"></div>
+          </div>
         }
         style={{
-          backgroundColor: "#222",
-          borderRadius: "20%", // круглая кнопка
+          backgroundColor: "#dc2626",
+          borderRadius: "50%",
           width: "60px",
           height: "60px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          boxShadow: "0 8px 8px rgba(0,0,0,0.3)",
-          cursor: "pointer",
+          boxShadow: "0 10px 40px rgba(220, 38, 38, 0.5)",
+          border: "1px solid rgba(255, 255, 255, 0.1)"
         }}
       />
       
-      <div className="w-full z-0  h-[1000px]  bg-cover "
- style={{
-    backgroundImage: `url(http://localhost:8000/kino${product.imgvid})`,
-  }}>
-
-      
-
-           
-        <div  className="grind   w-[100%] h-[1200px]  z-10 "
-         > 
-       
-
-    
-     <div className="flex min-[501px]:hidden">
-            {!fynts && (
-    <div className="fixed inset-0 z-50 bg-[#333333eb] flex flex-col items-center justify-start p-6 space-y-6">
-    
+ <div
+  className="w-full h-[1000px] bg-cover bg-center relative"
+  style={{
+    backgroundImage: `url(https://grgrege.onrender.com/kino${product.imgvid})`,
+  }}
+>
      
-      <div className="mb-[100px]  flex">
-        <Image
-          src="/img/Copilot_20251012_035756.png"
-          width={125}
-          height={125}
-          alt="User Avatar"
-          className="w-[125px] min-[400px]:ml-[100px] max-[400px]:ml-[90px] h-[125px] rounded-full shadow-lg"
-        />
-        <button className=" min-[400px]:ml-[90px] max-[400px]:ml-[70px] text-[25px] text-blue-600" onClick={ () => setfynts(!false)}>X</button>
-      </div>
-      
-    
-      <nav className="flex  text-amber-50 flex-wrap mx-[200px] justify-center gap-10">
-        {["Media", "Movies", "ACTORS", "NEWS", "CATEGORIES"].map((item) => (
-          <a
-            key={item}
-            href="#"
-            className="nosifer-regular text-[17px] text-center transition duration-300 transform hover:text-red-700 hover:underline hover:scale-110"
-          >
-            {item}
-          </a>
-        ))}
-      </nav>
-    
-    </div>
-    
-    )}
-     </div>
-    
-        <div className="flex  min-[1058px]:justify-center  max-[1058px]:justify-around  2xl:gap-[130px] xl:gap-[70px] max-[500px]:gap-[5px] min-[400px]:mx-[30px] max-[400px]:mx-[10px]">
-    
-    
-       <div className="flex gap-[4px] min-[500px]:hidden">
-    
-    
-    
-        <button onClick={() => {filter(true);setIsOpen(false) }} className="min-[400px]:w-[55px]   max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px]   hover:scale-110 bg-[rgba(255,255,255,1)]">
-         <div className=" min-[400px]:ml-[15px]  max-[400px]:ml-[10px]  min-[400px]:mb-[0px] max-[400px]:mb-[3px]">
-           <div className="w-[25px] h-[3px] my-[6px] bg-[#608fc5]"></div>
-           <div className="w-[25px] h-[3px] my-[6px] bg-[#608fc5]"></div>
-            <div className="w-[25px] h-[3px] bg-[#608fc5]"></div>
-         </div>
-       </button>
+        <div  className="bg-gradient-to-br  w-full relative z-0 "> 
+          
   
-    
-       </div>
-    
-    
-    
-       <div className="flex gap-[4px] min-[1058px]:hidden">
-          <a href="#" className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px]   hover:scale-110 bg-[rgba(255,255,255,1)]">
-    
-                      <Image
-              src="/img/Vector.png"
-              width={25}
-              height={25}
-              alt="User Avatar"
-              className=" w-[25px] mx-auto  min-[400px]:mt-[15px] max-[400px]:mt-[10px]  hover:scale-140 transition duration-400 ease-in-out h-[25px]"
-            />
-       </a>
-       </div>
-       
-    
-     
-                        <Image
-              src="/img/Copilot_20251012_035756.png"
-              width={200}
-              height={200}
-              alt="Logo"
-              className="  2xl:w-[200px] xl:h-[200px] lg:w-[200px] lg:h-[200px] md:h-[200px] md:w-[200px] sm:h-[200px] sm:w-[200px]  min-[400px]:w-[140px] max-[400px]:w-[125px]  min-[400px]:h-[140px] max-[400px]:h-[125px]  xl:w-[200px]   2xl:h-[200px]"
-            />
-            
-    
-       
-    
-      <div className=" hidden min-[1058px]:flex">
-                 <div className='flex justify-center  pt-[100px]  h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px]    text-amber-50'>
-    
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">Media</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">Movies</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline hover:scale-115 text-[17px]">ACTORS</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300 hover:underline  hover:scale-115 text-[17px]">NEWS</a>
-    <a href="#" className="nosifer-regular hover:text-red-700 hover:duration-300  hover:underline  hover:scale-115 text-[17px]">CATEGORIES</a>
-    
-    
-       </div>
-      </div>
-    <div className="hidden min-[1058px]:flex">
-        <div className="flex mt-[80px]    gap-[12px]"> 
-           <a href="#" className="w-[55px] h-[52px] rounded-[20px]  hover:scale-110 bg-[rgba(255,255,255,1)]">
-    
-                      <Image
-              src="/img/Vector.png"
-              width={25}
-              height={25}
-              alt="User Avatar"
-              className=" w-[25px] mx-auto mt-[15px] hover:scale-140 transition duration-400 ease-in-out h-[25px]"
-            />
-       </a>
-       <button className="w-[138px] cursor-pointer nosifer-regular hover:scale-110 h-[53px] font-semibold text-[#ac1920] hover:text-red-600      rounded-[15px]  shadow-[0_0_10px_2px_rgba(173,216,230,0.6)]     bg-[#f1f1f1] ">
-        Enter
-       </button>
-    </div>
-    </div>
+  {/* Градиент поверх изображения - от прозрачного к чёрному */}
+  <div className="absolute inset-0 bg-gradient-to-b  from-black/10 to-black"></div>
+
+  {/* Размытое пятно снизу для мягкого перехода */}
+  <div className="absolute top-[75%] w-full left-0 right-0 h-[30%] bg-gradient-to-t bg-gradient-to-b from-gray-950 via-gray-900 to-black to-transparent  blur-[10px] "></div>
+  
+
+
+ 
+
+
+
+
       
-    
-      <div className="flex min-[1058px]:hidden">
-          <button className=" cursor-pointer min-[500px]:w-[138px] nosifer-regular text-red-700  max-[500px]:w-[90px] min-[500px]:h-[53px] max-[500px]:h-[52px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px]   hover:scale-110  font-semibold  rounded-[20px]  shadow-[0_0_10px_2px_rgba(173,216,230,0.6)]  bg-[#f1f1f1] ">
-        Enter
-       </button>
-      </div>
-        </div>
+   <div className="flex  top-0 relative  z-40 min-[501px]:hidden">
+           {!fynts && (
+             <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl">
+               <div className="relative h-full flex flex-col items-center justify-start p-6 space-y-6">
+                 
+                 <div className="mb-[100px] flex">
+                   <Image
+                     src="/img/Copilot_20251012_035756.png"
+                     width={125}
+                     height={125}
+                     alt="User Avatar"
+                     className="w-[125px] min-[400px]:ml-[100px] max-[400px]:ml-[90px] h-[125px] rounded-full shadow-2xl ring-4 ring-red-500/30"
+                   />
+                   <button 
+                     className="min-[400px]:ml-[90px] max-[400px]:ml-[70px] text-[25px] text-red-500 hover:text-red-400 transition-colors" 
+                     onClick={() => setfynts(!false)}
+                   >
+                     X
+                   </button>
+                 </div>
+                 
+                 <nav className="flex text-amber-50 flex-wrap mx-[200px] justify-center gap-10">
+                   {["Media", "Movies", "ACTORS", "NEWS", "CATEGORIES"].map((item) => (
+                     <a
+                       key={item}
+                       href="#"
+                       className="nosifer-regular text-[17px] text-center transition duration-300 transform hover:text-red-500 hover:underline hover:scale-110"
+                     >
+                       {item}
+                     </a>
+                   ))}
+                 </nav>
+               </div>
+             </div>
+           )}
+         </div>
+   
+         
+     <div className={` sticky z-40  top-0  transition-all duration-500 ${
+  isScrolled
+    ? 'bg-black/40 backdrop-blur-2xl shadow-2xl'
+    : 'bg-transparent'
+}`}>
+
+               <div className="flex min-[1058px]:justify-center max-[1058px]:justify-around 2xl:gap-[130px] xl:gap-[70px] max-[500px]:gap-[5px] min-[400px]:mx-[30px] max-[400px]:mx-[10px]">
+                 
+                 <div className="flex gap-[4px] min-[500px]:hidden">
+                   <button 
+                     onClick={() => setfynts(false)} 
+                     className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+                   >
+                     <div className="min-[400px]:ml-[15px] max-[400px]:ml-[10px] min-[400px]:mb-[0px] max-[400px]:mb-[3px]">
+                       <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
+                       <div className="w-[25px] h-[3px] my-[6px] bg-red-500"></div>
+                       <div className="w-[25px] h-[3px] bg-red-500"></div>
+                     </div>
+                   </button>
+                 </div>
+       
+                 <div className="flex gap-[4px] min-[1058px]:hidden">
+                   <a 
+                     href="#" 
+                     className="min-[400px]:w-[55px] max-[400px]:w-[44px] min-[400px]:h-[52px] max-[400px]:h-[42px] min-[400px]:rounded-[20px] max-[400px]:rounded-[15px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+                   >
+                     <Image
+                       src="/img/Vector.png"
+                       width={25}
+                       height={25}
+                       alt="Search"
+                       className="w-[25px] mx-auto min-[400px]:mt-[15px] max-[400px]:mt-[10px] hover:scale-140 transition duration-400 ease-in-out h-[25px]"
+                     />
+                   </a>
+                 </div>
+       
+                 <Image
+                   src="/img/Copilot_20251012_035756.png"
+                   width={150}
+                   height={150}
+                   alt="Logo"
+                   className="2xl:w-[150px] xl:h-[150px] lg:w-[150px] lg:h-[150px] md:h-[150px] md:w-[150px] sm:h-[150px] sm:w-[150px] min-[400px]:w-[140px] max-[400px]:w-[125px] min-[400px]:h-[140px] max-[400px]:h-[125px] xl:w-[150px] 2xl:h-[150px] drop-shadow-2xl hover:drop-shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-500 hover:scale-110"
+                 />
+       
+                 <div className="hidden min-[1058px]:flex">
+                   <div className='flex justify-center pt-[70px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px] text-amber-50'>
+                     <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                       Media
+                       <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                     </a>
+                     <a href="/movies" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                       Movies
+                       <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                     </a>
+                     <a href="/actors" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                       ACTORS
+                       <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                     </a>
+                     <a href="/news" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                       NEWS
+                       <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                     </a>
+                     <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
+                       CATEGORIES
+                       <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
+                     </a>
+                   </div>
+                 </div>
+       
+                 <div className="hidden min-[1058px]:flex">
+                   <div className="flex mt-[50px] gap-[12px]">
+                     <a 
+                       href="#" 
+                       className="w-[55px] h-[52px] rounded-[20px] hover:scale-110 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 flex items-center justify-center"
+                     >
+                       <Image
+                         src="/img/Vector.png"
+                         width={25}
+                         height={25}
+                         alt="Search"
+                         className="w-[25px] h-[25px] hover:scale-140 transition duration-400 ease-in-out"
+                       />
+                     </a>
+                     <button className="w-[138px] cursor-pointer nosifer-regular hover:scale-110 h-[53px] font-semibold px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[15px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
+                       Enter
+                     </button>
+                   </div>
+                 </div>
+       
+                 <div className="flex min-[1058px]:hidden">
+                   <button className="cursor-pointer min-[500px]:w-[138px] nosifer-regular max-[500px]:w-[90px] min-[500px]:h-[53px] max-[500px]:h-[52px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[20px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
+                     Enter
+                   </button>
+                 </div>
+               </div>
+             </div>
+
+             
+             
 
 
-
-        <div className="flex justify-center">
+        <div className="flex  relative z-20 justify-center">
 
     <div >
           <div className="flex gap-[50px] ">
-              <Image
-               src={`http://localhost:8000/kino${product.img}`}
+              <div>
+                <Image
+               src={`https://grgrege.onrender.com/kino${product.img}`}
               width={404}
               height={559}
               alt="User Avatar"
               className=" w-[404px]   rounded-[15px]   h-[559px]"
               />
+            <MovieRating  idconos={product._id}  />
+              </div>
             <div>
   <nav className="flex  mt-[40px] gap-2 text-sm text-[rgba(79,91,124,1)]">
   <a href="/" className="hover:underline text-[20px] text-[#e9e9e9bf]">Home</a>
@@ -251,7 +316,7 @@ className="
             </div>
 
         </div>
-        <div className="mt-[120px] gap-[50px] z-30 flex ">
+        <div className="mt-[120px] gap-[50px] relative z-20 flex ">
 
           <div>
             <h2 className="text-[19px] rubik-distressed-regular text-amber-50 ">year :<span className="text-amber-300  underline pl-[80px]">{product.year}</span></h2>
@@ -286,14 +351,15 @@ className="
 
 
 
-        
 
-    
-   
+      
 
         </div>
-        <div className=" px-[12%]">
-           <div>
+
+        <div className="  px-[12%]   ">
+
+       
+           <div className=" relative z-20">
            <h2 className="text-[50px] mb-[60px] rubik-distressed-regular text-amber-50">Starring</h2>
         
 <div className="grid grid-cols-5 gap-4">
@@ -305,10 +371,10 @@ className="
     >
       <div className="w-[248px] h-[250px] overflow-hidden">
         <Image 
-          src={`http://localhost:8000/kino${actor.masactor}`} 
+          src={`https://grgrege.onrender.com/kino${actor.masactor}`} 
           width={248} 
           height={250} 
-          alt={`image-${i}`} 
+          alt={`акуккк`} 
           className="object-cover w-full h-full" 
         />
       </div>

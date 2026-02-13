@@ -4,16 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import 'plyr-react/plyr.css';
+import Licos from './Licos'
 
 const Plyr = dynamic(() => import('plyr-react'), { ssr: false });
 
-export default function Kino() {
+export default function Kino({}) {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     if (!id) return;
-    fetch(`http://localhost:8000/kino/kinge/${id}`)
+    fetch(`https://grgrege.onrender.com/kino/kinge/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(err => console.error(err));
@@ -31,20 +32,20 @@ export default function Kino() {
  <Plyr
   source={{
     type: 'video',
-    poster: `http://localhost:8000/kino${product.img}`,
+    poster: `https://grgrege.onrender.com/kino${product.img}`,
     sources: [
       {
-        src: `http://localhost:8000/kino${product.video480}`,
+        src: `https://grgrege.onrender.com/kino${product.video480}`,
         type: 'video/mp4',
         size: 480,
       },
       {
-        src: `http://localhost:8000/kino${product.video720}`,
+        src: `https://grgrege.onrender.com/kino${product.video720}`,
         type: 'video/mp4',
         size: 720,
       },
       {
-        src: `http://localhost:8000/kino${product.video1080}`,
+        src: `https://grgrege.onrender.com/kino${product.video1080}`,
         type: 'video/mp4',
         size: 1080,
       },
@@ -61,9 +62,12 @@ export default function Kino() {
   }}
 />
 
-      <h2 className="text-[40px] mb-[60px] rubik-distressed-regular text-amber-50">
+    <div className='flex justify-between  '>
+        <h2 className="text-[40px] mt-[80px] mb-[60px] rubik-distressed-regular text-amber-50">
         {product.name}
       </h2>
+       <Licos idconos={product._id} />
+    </div>
     </div>
 </section>
   );

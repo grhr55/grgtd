@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Otvetcom from "./Otvetcom";
 import Reactions from "./Lice";
 
+
 export default function Comentaris({ newsId }) {
   const [comentaris, setcomentaris] = useState([]);
   const [coment, setcoment] = useState("");
@@ -19,7 +20,7 @@ export default function Comentaris({ newsId }) {
     if (!coment.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:8000/data/coments", {
+      const res = await fetch("https://grgrege.onrender.com/data/coments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ coment, newsId, zagolcoment })
@@ -43,7 +44,7 @@ export default function Comentaris({ newsId }) {
 
   const loadReplyCount = async (commentId) => {
     try {
-      const res = await fetch(`http://localhost:8000/otetcom/otetcom/${commentId}`);
+      const res = await fetch(`https://grgrege.onrender.com/otetcom/otetcom/${commentId}`);
       const data = await res.json();
       setReplyCounts(prev => ({ ...prev, [commentId]: data.length }));
     } catch (e) {
@@ -55,7 +56,7 @@ export default function Comentaris({ newsId }) {
     if (!replyText[commentId]?.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:8000/otetcom/ovetcoment", {
+      const res = await fetch("https://grgrege.onrender.com/otetcom/ovetcoment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -77,26 +78,29 @@ export default function Comentaris({ newsId }) {
     }
   };
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        
-        setLoading(true);
-        const res = await fetch(`http://localhost:8000/data/coments/${newsId}`);
-        const data = await res.json();
+useEffect(() => {
+  const load = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`https://grgrege.onrender.com/data/coments/${newsId}`);
+      const data = await res.json();
+      setcomentaris(data);
+      
+   
+      data.forEach(comment => {
+        loadReplyCount(comment._id);
+      });
+      
+    } catch (e) {
+      console.log(e);
+      setcomentaris([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        setcomentaris(data);
-      } catch (e) {
-        console.log(e);
-        
-        setcomentaris([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (newsId) load();
-  }, [newsId]);
+  if (newsId) load();
+}, [newsId]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -123,35 +127,33 @@ export default function Comentaris({ newsId }) {
     <div className="bg-gradient-to-br from-gray-500 to-green-100/40 backdrop-blur-sm border border-gray-700/50 rounded-3xl p-6 max-[500px]:p-4 shadow-xl">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-4 max-[500px]:gap-3">
-          {/* Avatar skeleton */}
+          
           <div className="min-[500px]:w-20 max-[500px]:w-15 min-[500px]:h-20 max-[500px]:h-15 rounded-full bg-gray-700/50 animate-pulse" />
           
           <div className="space-y-2">
-            {/* Name skeleton */}
+         
             <div className="h-5   min-[500px]:w-24 max-[500px]:w-17  bg-gray-700/50 rounded animate-pulse" />
-            {/* Date skeleton */}
+           
             <div className="h-4  min-[500px]:w-32  max-[500px]:w-17 bg-gray-700/50 rounded animate-pulse" />
           </div>
         </div>
 
-        {/* Reactions skeleton */}
+      
         <div className="flex gap-2">
           <div className="w-16 h-8 bg-gray-700/50 rounded-lg animate-pulse" />
           <div className="w-16 h-8 bg-gray-700/50 rounded-lg animate-pulse" />
         </div>
       </div>
 
-      {/* Title skeleton */}
       <div className="h-6 w-3/4 bg-gray-700/50 rounded animate-pulse mb-3" />
 
-      {/* Text skeleton */}
       <div className="space-y-2 mb-4">
         <div className="h-4 w-full bg-gray-700/50 rounded animate-pulse" />
         <div className="h-4 w-5/6 bg-gray-700/50 rounded animate-pulse" />
         <div className="h-4 w-4/6 bg-gray-700/50 rounded animate-pulse" />
       </div>
 
-      {/* Actions skeleton */}
+
       <div className="flex items-center gap-4 pt-3 border-t border-gray-700/50">
         <div className="h-8 w-24 bg-gray-700/50 rounded animate-pulse" />
         <div className="h-8 w-32 bg-gray-700/50 rounded animate-pulse" />
@@ -162,7 +164,7 @@ export default function Comentaris({ newsId }) {
   return (
     <div className="flex justify-center max-[500px]:px-4 px-8 py-10">
       <div className="w-full max-w-5xl">
-        {/* Заголовок секции */}
+       
         <div className="text-center mb-10">
           <h2 className="text-4xl max-[500px]:text-3xl font-extrabold bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
             Комментарии

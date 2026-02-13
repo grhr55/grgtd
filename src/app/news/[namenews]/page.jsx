@@ -36,7 +36,7 @@ useEffect(() => {
 
   setLoading(true);
 
-  fetch(`http://localhost:8000/newsi/news/${namenews}`)
+  fetch(`https://grgrege.onrender.com/newsi/news/${namenews}`)
     .then(res => res.json())
     .then(data => {
       setProduct(data);
@@ -58,7 +58,7 @@ useEffect(() => {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/newsi/newosti", {
+      const res = await fetch("https://grgrege.onrender.com/newsi/newosti", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emails }),
@@ -95,13 +95,11 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-[#00000000]">
       
-      {/* Animated Background */}
       <div className="fixed inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-black -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02]"></div>
       </div>
 
-      {/* Scroll to Top */}
       <ScrollToTop
         smooth
         top={100}
@@ -120,11 +118,10 @@ useEffect(() => {
           justifyContent: "center",
           alignItems: "center",
           boxShadow: "0 10px 40px rgba(220, 38, 38, 0.5)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(255, 255, 255, 0.1)"
         }}
       />
   
-      {/* Mobile Menu */}
       <div className="flex min-[501px]:hidden">
         {!fynts && (
           <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl">
@@ -162,7 +159,6 @@ useEffect(() => {
         )}
       </div>
 
-      {/* Header */}
       <div className={`sticky top-0 z-40 transition-all duration-500 ${
         isScrolled 
           ? 'bg-[#00000000] backdrop-blur-2xl shadow-2xl border-b border-white/5' 
@@ -170,7 +166,6 @@ useEffect(() => {
       }`}>
         <div className="flex min-[1058px]:justify-center max-[1058px]:justify-around 2xl:gap-[130px] xl:gap-[70px] max-[500px]:gap-[5px] min-[400px]:mx-[30px] max-[400px]:mx-[10px]">
           
-          {/* Mobile Menu Button */}
           <div className="flex gap-[4px] min-[500px]:hidden">
             <button 
               onClick={() => setfynts(false)} 
@@ -184,7 +179,6 @@ useEffect(() => {
             </button>
           </div>
 
-          {/* Search Button Mobile */}
           <div className="flex gap-[4px] min-[1058px]:hidden">
             <a 
               href="#" 
@@ -200,7 +194,6 @@ useEffect(() => {
             </a>
           </div>
 
-          {/* Logo */}
           <Image
             src="/img/Copilot_20251012_035756.png"
             width={150}
@@ -209,33 +202,31 @@ useEffect(() => {
             className="2xl:w-[150px] xl:h-[150px] lg:w-[150px] lg:h-[150px] md:h-[150px] md:w-[150px] sm:h-[150px] sm:w-[150px] min-[400px]:w-[140px] max-[400px]:w-[125px] min-[400px]:h-[140px] max-[400px]:h-[125px] xl:w-[150px] 2xl:h-[150px] drop-shadow-2xl hover:drop-shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-500 hover:scale-110"
           />
 
-          {/* Desktop Navigation */}
           <div className="hidden min-[1058px]:flex">
             <div className='flex justify-center pt-[70px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px] text-amber-50'>
               <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
                 Media
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
+                <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
               </a>
               <a href="/movies" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
                 Movies
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
+                <span className="absolute bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
               </a>
               <a href="/actors" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
                 ACTORS
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
+                <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
               </a>
               <a href="/news" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
                 NEWS
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
+                <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
               </a>
               <a href="#" className="nosifer-regular text-sm xl:text-base text-white/80 hover:text-red-500 transition-all duration-300 relative group">
                 CATEGORIES
-                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-amber-500 group-hover:w-full transition-all duration-500"></span>
+                <span className="absolute  bg-gradient-to-r from-red-500  group-hover:w-full transition-all duration-500"></span>
               </a>
             </div>
           </div>
 
-          {/* Desktop Actions */}
           <div className="hidden min-[1058px]:flex">
             <div className="flex mt-[50px] gap-[12px]">
               <a 
@@ -256,7 +247,6 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Mobile Enter Button */}
           <div className="flex min-[1058px]:hidden">
             <button className="cursor-pointer min-[500px]:w-[138px] nosifer-regular max-[500px]:w-[90px] min-[500px]:h-[53px] max-[500px]:h-[52px] 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-[80px] sm:mt-[80px] mt-[50px] hover:scale-110 font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white rounded-[20px] hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300">
               Enter
@@ -265,48 +255,44 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="2xl:mx-[24%] xl:mx-[14%] lg:mx-[10%] mx-[10%]">
+      <div className="2xl:mx-[24%] xl:mx-[14%] lg:mx-[10%] mx-[5%]">
         
-        {/* Title */}
        {loading ? (
          <div className="animate-pulse">
            <div className="h-8 w-3/4 bg-[#797b7f] rounded mb-2" />
            <div className="h-6 w-1/2 bg-[#797b7f] rounded" />
          </div>
        ) : (
-         <h1 className="text-amber-50 min-[500px]:text-[30px] max-[500px]:text-[17px] m-0 p-0 leading-tight min-[500px]:font-extrabold max-[500px]:font-bold text-3xl sm:text-4xl lg:text-6xl">
+         <h1 className="text-white min-[500px]:text-[42px] max-[500px]:text-[24px] min-[500px]:leading-[1.3] max-[500px]:leading-[1.4] m-0 p-0 min-[500px]:font-bold max-[500px]:font-semibold tracking-tight font-['Inter',sans-serif]">
            {product.newsname}
          </h1>
        )}
 
-        {/* Breadcrumbs */}
       {loading ? (
         <div className="animate-pulse mt-4">
           <div className="h-6 w-[80%] bg-[#797b7f] rounded mb-7" />
         </div>
-      ):(  <nav className="flex flex-wrap min-[500px]:mt-[30px] max-[500px]:mt-[20px] min-[500px]:mb-[50px] max-[500px]:mb-[20px] gap-2 text-[rgba(79,91,124,1)]">
-          <a href="/" className="hover:underline min-[800px]:text-[20px] max-[800px]:text-[15px] text-gray-500 hover:text-red-500 transition-colors">
+      ):(  <nav className="flex flex-wrap min-[500px]:mt-[30px] max-[500px]:mt-[20px] min-[500px]:mb-[50px] max-[500px]:mb-[20px] gap-2">
+          <a href="/" className="hover:underline min-[800px]:text-[18px] max-[800px]:text-[14px] text-gray-400 hover:text-red-400 transition-colors font-['Inter',sans-serif]">
             Home
           </a>
-          <span className="text-gray-600 min-[800px]:mt-[4px] max-[800px]:mt-[0px]">›</span>
-          <a href="/news" className="hover:underline min-[800px]:text-[20px] max-[800px]:text-[15px] text-gray-500 hover:text-red-500 transition-colors">
+          <span className="text-gray-600 min-[800px]:mt-[2px] max-[800px]:mt-[0px]">›</span>
+          <a href="/news" className="hover:underline min-[800px]:text-[18px] max-[800px]:text-[14px] text-gray-400 hover:text-red-400 transition-colors font-['Inter',sans-serif]">
             news
           </a>
-          <span className="text-gray-600 min-[800px]:mt-[4px] max-[800px]:mt-[0px]">›</span>
-          <span className="text-red-500 min-[800px]:text-[20px] max-[800px]:text-[15px] font-medium">
+          <span className="text-gray-600 min-[800px]:mt-[2px] max-[800px]:mt-[0px]">›</span>
+          <span className="text-red-400 min-[800px]:text-[18px] max-[800px]:text-[14px] font-medium font-['Inter',sans-serif]">
             {product.namenews}
           </span>
         </nav>)}
         
 
-        {/* Featured Image */}
        {loading ? ( <div className="animate-pulse mt-4">
           <div className=" bg-[#797b7f] rounded-[15px] 2xl:h-[800px] xl:h-[600px] lg:h-[500px] md:h-[400px] sm:h-[300px] h-[270px] w-full" />
         </div>):( <div className="relative overflow-hidden rounded-2xl group">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Image
-            src={`http://localhost:8000/newsi${product.imgnews}`}
+            src={`https://grgrege.onrender.com/newsi${product.imgnews}`}
             width={910}
             height={680}
             alt={product.namenews}
@@ -314,12 +300,10 @@ useEffect(() => {
           />
         </div>)}
 
-        {/* Description */}
-        <h2 className="text-amber-50 m-0 p-0 leading-tight min-[500px]:mt-[40px] max-[500px]:mt-[20px] min-[500px]:mb-[40px] max-[500px]:mb-[20px] font-mono min-[500px]:text-[20px] max-[500px]:text-[17px] text-gray-300 text-lg lg:text-xl leading-relaxed font-light">
+        <p className="text-gray-200 min-[500px]:text-[19px] max-[500px]:text-[16px] min-[500px]:leading-[1.8] max-[500px]:leading-[1.7] min-[500px]:mt-[50px] max-[500px]:mt-[25px] min-[500px]:mb-[50px] max-[500px]:mb-[25px] font-['Raleway',sans-serif] font-normal tracking-wide antialiased">
           {product.opisnews}
-        </h2>
+        </p>
 
-        {/* Video */}
        {loading ? (<div className="animate-pulse mt-4">
           <div className=" bg-[#797b7f] w-full 2xl:h-[700px] xl:h-[700px] lg:h-[500px] md:h-[400px] sm:h-[400px] h-[250px] rounded-[15px] " />
         </div>):( <div className="relative overflow-hidden rounded-2xl bg-black shadow-2xl">
@@ -331,35 +315,31 @@ useEffect(() => {
           />
         </div>)}
 
-        {/* Video Description */}
-        <h2 className="text-amber-50 m-0 p-0 leading-tight min-[500px]:mt-[40px] max-[500px]:mt-[20px] min-[500px]:mb-[40px] max-[500px]:mb-[20px] font-mono min-[500px]:text-[20px] max-[500px]:text-[17px] text-gray-300 text-lg lg:text-xl leading-relaxed font-light">
+        <p className="text-gray-200 min-[500px]:text-[19px] max-[500px]:text-[16px] min-[500px]:leading-[1.8] max-[500px]:leading-[1.7] min-[500px]:mt-[50px] max-[500px]:mt-[25px] min-[500px]:mb-[50px] max-[500px]:mb-[25px] font-['Raleway',sans-serif] font-normal tracking-wide antialiased">
           {product.opisvideonews}
-        </h2>
+        </p>
 
-        {/* Highlight Box */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-950/30 via-amber-950/20 to-red-950/30 border border-red-900/30 min-[500px]:p-7 max-[500px]:p-4">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-950/30 via-amber-950/20 to-red-950/30 border border-red-900/30 min-[500px]:p-8 max-[500px]:p-5 min-[500px]:my-[50px] max-[500px]:my-[30px]">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-amber-600 to-red-600"></div>
-          <h2 className="text-amber-50 m-0 p-0 leading-tight min-[500px]:mt-[40px] max-[500px]:mt-[0px] min-[500px]:mb-[40px] max-[500px]:mb-[0px] font-mono min-[500px]:text-[20px] max-[500px]:text-[17px] text-white/90">
+          <p className="text-gray-100 min-[500px]:text-[19px] max-[500px]:text-[16px] min-[500px]:leading-[1.8] max-[500px]:leading-[1.7] m-0 p-0 font-['Raleway',sans-serif] font-normal tracking-wide antialiased">
             {product.textsetifoto}
-          </h2>
+          </p>
         </div>
 
-        {/* Secondary Image */}
      {loading ? (<div className="animate-pulse mt-4">
           <div className=" bg-[#797b7f] w-full 2xl:h-[700px] xl:h-[700px] lg:h-[500px] md:h-[400px] sm:h-[400px] h-[250px] rounded-[15px]   " />
-        </div>):(   <div className="relative overflow-hidden rounded-2xl group">
+        </div>):(   <div className="relative overflow-hidden rounded-2xl group min-[500px]:my-[50px] max-[500px]:my-[30px]">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <Image
-            src={`http://localhost:8000/newsi${product.img}`}
+            src={`https://grgrege.onrender.com/newsi${product.img}`}
             width={940}
             height={680}
             alt={product.namenews}
-            className="w-[940px] min-[500px]:h-auto max-[500px]:h-[200px] min-[500px]:mt-[40px] max-[500px]:mt-[20px] rounded-[15px] object-cover transform group-hover:scale-105 transition-transform duration-1000"
+            className="w-[940px] min-[500px]:h-auto max-[500px]:h-[200px] rounded-[15px] object-cover transform group-hover:scale-105 transition-transform duration-1000"
           />
         </div>)}
 
 
-        {/* Vertical Swiper - ORIGINAL */}
      {loading ?(<div className="animate-pulse mt-4">
           <div className=" bg-[#797b7f] w-full 2xl:h-[700px] xl:h-[700px] lg:h-[500px] md:h-[400px] sm:h-[400px] h-[250px] rounded-[15px]  " />
         </div>):(   <Swiper
@@ -377,7 +357,7 @@ useEffect(() => {
             Object.values(product.masnewsimg).map((img, index) => (
               <SwiperSlide key={index}>
                 <Image
-                  src={`http://localhost:8000/newsi${img}`}
+                  src={`https://grgrege.onrender.com/newsi${img}`}
                   width={940}
                   height={680}
                   alt={product.namenews}
@@ -389,52 +369,45 @@ useEffect(() => {
 
       </div>
 
-      {/* Comments */}
       {product && <Coments newsId={product._id} />}
 
-      {/* Newsletter Section */}
-      <div className="bg-[#070b2391] flex justify-center w-[100%] h-[700px]">
-        <div className="my-[70px] min-[500px]:w-[1400px] max-[500px]:w-[360px] mx-[8%] h-[580px] rounded-[10px] bg-gradient-to-br from-red-900/20 via-black to-amber-900/20 border border-red-900/30 flex flex-col items-center relative overflow-hidden">
+      <div className="bg-[#070b2391] flex justify-center w-[100%] min-[500px]:h-[700px] max-[500px]:h-[400px]">
+        <div className="min-[500px]:mt-[60px] max-[500px]:mt-[0px] min-[500px]:w-[1400px] max-[500px]:w-[360px] mx-[5%] h-[580px] rounded-[10px] bg-gradient-to-br from-red-900/20 via-black to-amber-900/20 border border-red-900/30 flex flex-col items-center relative overflow-hidden">
           
-          {/* Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent"></div>
           <div className="absolute -top-40 -left-40 w-80 h-80 bg-red-600/20 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-amber-600/20 rounded-full blur-3xl"></div>
 
           <div className="relative z-10 w-full flex flex-col items-center">
-            {/* Title */}
-            <h2 className="text-amber-50 mx-[20px] font-extrabold text-center mt-[14%] min-[500px]:text-[30px] max-[500px]:text-[22px]">
+            <h2 className="text-white mx-[20px] font-bold text-center mt-[14%] min-[500px]:text-[28px] max-[500px]:text-[20px] font-['Inter',sans-serif] leading-snug">
               Leave your email address to receive news and updates
             </h2>
 
-            {/* Form */}
             <div className="flex mx-[10px] justify-center flex-wrap mt-10 gap-4">
               <input
                 type="email"
                 value={emails}
                 onChange={(e) => setEmails(e.target.value)}
                 placeholder="Enter your email"
-                className="px-8 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-500 outline-none transition-all duration-300 focus:border-red-500 focus:bg-white/10"
+                className="px-8 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-500 outline-none transition-all duration-300 focus:border-red-500 focus:bg-white/10 font-['Inter',sans-serif]"
               />
 
               <button
                 onClick={sendEmail}
-                className="min-[530px]:px-14 max-[530px]:px-28 py-5 bg-gradient-to-r from-red-600 via-red-600 to-amber-600 text-white rounded-xl hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105"
+                className="min-[530px]:px-14 max-[530px]:px-28 py-5 bg-gradient-to-r from-red-600 via-red-600 to-amber-600 text-white rounded-xl hover:shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 font-['Inter',sans-serif] font-semibold"
               >
                 Send
               </button>
             </div>
 
-            {/* Status */}
             {status && (
-              <p className="text-center text-amber-50 mt-6 text-sm">
+              <p className="text-center text-white mt-6 text-sm font-['Inter',sans-serif]">
                 {status}
               </p>
             )}
 
-            {/* Footer Nav */}
             <div className="min-[500px]:mt-10">
-              <div className="flex justify-center mx-[20px] flex-wrap min-[500px]:pt-[80px] max-[500px]:pt-[60px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px] text-amber-50">
+              <div className="flex justify-center mx-[20px] flex-wrap min-[500px]:pt-[80px] max-[500px]:pt-[60px] h-[5px] 2xl:gap-[70px] xl:gap-[50px] gap-[30px] text-[20px]">
                 <a href="#" className="nosifer-regular text-[17px] text-gray-500 hover:text-red-500 hover:underline hover:scale-115 hover:duration-300">
                   Media
                 </a>

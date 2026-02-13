@@ -8,13 +8,11 @@ import { Pagination } from 'swiper/modules';
 import dynamic from 'next/dynamic';
 import 'plyr-react/plyr.css';
 import Link from 'next/link';
+import Licos from './Licos';
 
 const Plyr = dynamic(() => import('plyr-react'), {
   ssr: false,
 });
-
-
-
 
 
 export default function Slaid({ products }) {
@@ -67,9 +65,9 @@ export default function Slaid({ products }) {
   };
 
   return (
- <div className="w-full max-w-[89rem] mx-auto px-4 py-6 space-y-8 touch-pan-y">
+ <div className="w-full  relative z-30 max-w-[89rem] mx-auto px-4 py-6 space-y-8 touch-pan-y">
 
-  <h2 className="min-[500px]:text-[38px] max-[500px]:text-[30px] text-[#789112] text-center mt-[40px] nosifer-regular">
+  <h2 className="min-[500px]:text-[38px] max-[500px]:text-[30px] text-amber-50  text-center mt-[40px] nosifer-regular">
     New trailers
   </h2>
 
@@ -92,24 +90,24 @@ export default function Slaid({ products }) {
       allowTouchMove
       style={{ width: '100%' }}
     >
-      {products.map((product, index) => (
-        <SwiperSlide key={index} className="video-item">
+      {products.map((product ) => (
+        <SwiperSlide key={product._id} className="video-item">
 
           <Plyr
             source={{
               type: 'video',
               sources: [
                 {
-                  src: `http://localhost:8000/kino${product.video}`,
+                  src: `https://grgrege.onrender.com/kino${product.video}`,
                   type: 'video/mp4',
                 },
               ],
-              poster: `http://localhost:8000/kino${product.img}`,
+              poster: `https://grgrege.onrender.com/kino${product.img}`,
             }}
             options={{ autoplay: false }}
           />
 
-          <div className="flex justify-center">
+          <div className="flex  justify-between">
             <Link
               href={`/kino/${slugify(product.name)}`}
               className="group mt-3 inline-flex items-center gap-2 rounded-xl 
@@ -120,6 +118,11 @@ export default function Slaid({ products }) {
             >
               🎬 Watch a movie {product.name} 👈
             </Link>
+
+
+           <Licos idconos={product._id} />
+
+
           </div>
 
         </SwiperSlide>
@@ -153,10 +156,10 @@ export default function Slaid({ products }) {
               }`}
             >
               <video
-                src={`http://localhost:8000/kino${product.video}`}
+                src={`https://grgrege.onrender.com/kino${product.video}`}
                 muted
                 loop
-                poster={`http://localhost:8000/kino${product.img}`}
+                poster={`https://grgrege.onrender.com/kino${product.img}`}
                 preload="auto"
                 className="w-full 2xl:h-[400px] xl:h-[400px]
                            lg:h-[300px] md:h-[300px]
