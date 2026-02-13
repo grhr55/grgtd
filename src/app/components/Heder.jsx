@@ -503,23 +503,23 @@ return (
         </div>
 
         
-        <div className="flex justify-center  relative z-10 mt-[50px] mb-[80px] ">
+        <div className="flex justify-center  relative z-10 ">
           <div className="hidden min-[1420px]:flex">
-            <h2 className="text-[38px] nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent nosifer-regular">Popular films</h2>
+            <h2 className="text-[38px] nosifer-regular   mt-[50px] mb-[80px]  bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent nosifer-regular">Popular films</h2>
           </div>
 
           <div className="hidden min-[1420px]:flex">
-            <div className="w-[60px] mt-[23px] mx-[250px] h-[3px] bg-amber-50"></div>
+            <div className="w-[60px] mt-[23px] mx-[250px] h-[3px] mt-[70px] mb-[80px] bg-amber-50"></div>
           </div>
 
           <div className="mx-[10px]">
             <div className=" min-[1420px]:hidden ">
               <div className="mb-[30px]">
-                <h2 className="text-[28px] text-center bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent nosifer-regular">Popular films</h2>
+                <h2 className="text-[28px] text-center bg-gradient-to-r   min-[500px]:mt-[40px]   mt-[20px] from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent nosifer-regular">Popular films</h2>
               </div>
             </div>
     
-            <div className="min-[500px]:w-[400px] max-[500px]:w-[300px] mt-[13px] min-[500px]:mx-[0px] max-[500px]:mx-[10px] overflow-hidden relative">
+            <div className="min-[500px]:w-[400px] min-[500px]:mt-[60px] mt-[20px] max-[500px]:w-[300px]  min-[500px]:mx-[0px] max-[500px]:mx-[10px] mb-[10px] overflow-hidden relative">
               <div
                 ref={ref}
                 onMouseEnter={(e) => {
@@ -654,7 +654,7 @@ return (
           </div>
           
           <div className=" mb-[100px] relative z-10  min-[500px]:mx-[14%] max-[500px]:mx-[11%]">
-            <h2 className=" min-[500px]:text-[40px] max-[500px]:text-[28px] text-left nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent  min-[500px]:my-16 my-7 my-10 nosifer-regular">News</h2>
+            <h2 className=" min-[500px]:text-[40px] max-[500px]:text-[28px] text-left nosifer-regular   bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent  min-[500px]:my-16 my-7  nosifer-regular">News</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-10">
               {loadingNews ? (
